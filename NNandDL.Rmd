@@ -1,0 +1,12 @@
+---
+title: "github.io"
+author: "Jackie Lu"
+date: '2020-05-14'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
