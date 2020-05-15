@@ -424,11 +424,24 @@ Output value is different, but we don’t need to adjust the algorithm here beca
 <h3>Backpropagation with linear neurons</h3>
 <p>Suppose we replace the usual non-linear <span class="math inline">\(\sigma\)</span> function with <span class="math inline">\(\sigma(z) = z\)</span> throughout the network. Rewrite the backpropagation algorithm for this case.</p>
 <p>Let’s examine the steps when this change occurs. The input step does not change because it does not deal with weighted inputs. The feedforward step changes; <span class="math inline">\(a^l = z^l\)</span>. If we continue to the next layer, then <span class="math inline">\(a^{l + 1} = w^{l + 1} z^l + b^{l + 1}\)</span>. Each additional layer just adds weights and biases to the previous layer. In the output error, we also have a change. The derivative of <span class="math inline">\(z^L\)</span> with respect to the activation <span class="math inline">\(a\)</span> is just the weight <span class="math inline">\(w\)</span>. We get <span class="math inline">\(\delta^L = \nabla_a C \odot \sigma'(z^L) = \nabla_a C \odot w^L\)</span>. This is the same with the backpropagate the error step; we change the derivative in the same way. The output step does not change because there aren’t any weighted inputs directly in the formulas anymore.</p>
-
 </div>
+</div>
+<div id="chapter-3-exercises" class="section level1">
+<h1>Chapter 3 exercises</h1>
 <div id="derivative-of-the-sigmoid-function" class="section level3">
 <h3>Derivative of the sigmoid function</h3>
 <p>Verify that <span class="math inline">\(\sigma'(z) = \sigma(z) (1 - \sigma(z))\)</span>. <span class="math inline">\(\sigma(z) = \frac{1}{1 + e^{-z}}\)</span></p>
+<span class="math display">\[\begin{align*}
+\frac{d \sigma}{dz} &amp;= \frac{d}{dz} \frac{1}{1 + e^{-z}}\\
+&amp;= \frac{d}{dz} (1 + e^{-z})^{-1}\\
+&amp;= -(1 + e^{-z})^{-2} \times -e^{-z}\\
+&amp;= \frac{e^{-z}}{(1 + e^{-z})^2}\\
+&amp;= \frac{1}{1 + e^{-z}} \frac{e^{-z}}{1 + e^{-z}}\\
+&amp;= \frac{1}{1 + e^{-z}} \frac{e^{-z} + 1 - 1}{1 + e^{-z}}\\
+&amp;= \frac{1}{1 + e^{-z}} \frac{(1 + e^{-z}) - 1}{(1 + e^{-z})}\\
+&amp;= \frac{1}{1 + e^{-z}} (1 - \frac{1}{1 + e^{-z}})\\
+&amp;= \sigma(z) (1 - \sigma(z))
+\end{align*}\]</span>
 </div>
 </div>
 

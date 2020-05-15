@@ -289,7 +289,19 @@ Suppose we replace the usual non-linear $\sigma$ function with $\sigma(z) = z$ t
 
 Let's examine the steps when this change occurs. The input step does not change because it does not deal with weighted inputs. The feedforward step changes; $a^l = z^l$. If we continue to the next layer, then $a^{l + 1} = w^{l + 1} z^l + b^{l + 1}$. Each additional layer just adds weights and biases to the previous layer. In the output error, we also have a change. The derivative of $z^L$ with respect to the activation $a$ is just the weight $w$. We get $\delta^L = \nabla_a C \odot \sigma'(z^L) = \nabla_a C \odot w^L$. This is the same with the backpropagate the error step; we change the derivative in the same way. The output step does not change because there aren't any weighted inputs directly in the formulas anymore.  
 
-\section*{Chapter 3 exercises}
+# Chapter 3 exercises
 
 ### Derivative of the sigmoid function 
 Verify that $\sigma'(z) = \sigma(z) (1 - \sigma(z))$. $\sigma(z) = \frac{1}{1 + e^{-z}}$
+
+\begin{align*}
+\frac{d \sigma}{dz} &= \frac{d}{dz} \frac{1}{1 + e^{-z}}\\
+&= \frac{d}{dz} (1 + e^{-z})^{-1}\\
+&= -(1 + e^{-z})^{-2} \times -e^{-z}\\
+&= \frac{e^{-z}}{(1 + e^{-z})^2}\\
+&= \frac{1}{1 + e^{-z}} \frac{e^{-z}}{1 + e^{-z}}\\
+&= \frac{1}{1 + e^{-z}} \frac{e^{-z} + 1 - 1}{1 + e^{-z}}\\
+&= \frac{1}{1 + e^{-z}} \frac{(1 + e^{-z}) - 1}{(1 + e^{-z})}\\
+&= \frac{1}{1 + e^{-z}} (1 - \frac{1}{1 + e^{-z}})\\
+&= \sigma(z) (1 - \sigma(z))
+\end{align*}
