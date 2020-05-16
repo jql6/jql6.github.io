@@ -13,7 +13,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Book:
+Exercises from this book by Michael Nielsen:
 http://neuralnetworksanddeeplearning.com/index.html
 
 ## Chapter 1 exercises
@@ -63,7 +63,7 @@ We can see that if a perceptron's $w \cdot x + b = 0$, then replacing it with a 
 ### Bitwise digit representation
 There is a way of determining the bitwise representation of a digit by adding an extra layer to the three-layer network above. The extra layer converts the output from the previous layer into a binary representation, as illustrated in the figure below. Find a set of weights and biases for the new output layer. Assume that the first 3 layers of neurons are such that the correct output in the third layer (i.e., the old output layer) has activation at least 0.99, and incorrect outputs have activation less than 0.01.  
 
-![Bitwise digit neural network diagram](Bitwise.png)
+![Bitwise digit neural network diagram (image taken from the textbook)](Bitwise.png)
 
 \begin{array}{c | c}
 \text{bitwise} & \text{number}\\
@@ -305,3 +305,18 @@ Verify that $\sigma'(z) = \sigma(z) (1 - \sigma(z))$. $\sigma(z) = \frac{1}{1 + 
 &= \frac{1}{1 + e^{-z}} (1 - \frac{1}{1 + e^{-z}})\\
 &= \sigma(z) (1 - \sigma(z))
 \end{align*}
+
+### Remembering the respective roles of the $y$'s and $a$'s in the cross entropy cost function  
+One gotcha with the cross-entropy is that it can be difficult at first to remember the respective roles of the $y$'s and the $a$'s. It's easy to get confused about whether the right form is $-[y ln(a) + (1 - y) ln(1 - a)]$ or $-[a ln(y) + (1 - a) ln(1 - y)]$. What happens to the second of these expressions when $y = 0$ or $1$? Does this problem afflict the first expression? Why or why not?  
+
+Subbing $y = 0$ for the second equation:  
+$$-[a ln(0) + (1 - a) ln(1 - 0)]$$
+We see that we get $ln(0)$, which is undefined. Similarly, subbing $y = 1$ obtains:  
+$$-[a ln(1) + (1 - a) ln(1 - 1)] = -[a ln(1) + (1 - a) ln(0)]$$
+where we also get $ln(0)$. This doesn't affect the first equation because when we sub in $y = 0$ or $y = 1$, it just removes one of the terms because one of the $ln$ terms will be multiplied by 0.  
+
+### Minimization of the cross-entropy cost function
+In the single-neuron discussion at the start of this section, I argued that the cross-entropy is small if $\sigma(z) \approx y$ for all training inputs. The argument relied on $y$ being equal to either 0 or 1. This is usually true in classification problems, but for other problems (e.g., regression problems), $y$ can sometimes take values intermeditate between 0 and 1. Show that the cross-entropy is still minimized when $\sigma(z) = y$ for all training inputs. When this is the case, the cross-entropy has the value:
+$$C = -\frac{1}{n} \sum_x [y ln(y) + (1 - y) ln(1 - y)]$$
+The quantity $-[y ln(y) + (1 - y) ln(1 - y)]$ is sometimes known as the binary entropy.
+
