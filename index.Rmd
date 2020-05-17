@@ -320,3 +320,45 @@ In the single-neuron discussion at the start of this section, I argued that the 
 $$C = -\frac{1}{n} \sum_x [y ln(y) + (1 - y) ln(1 - y)]$$
 The quantity $-[y ln(y) + (1 - y) ln(1 - y)]$ is sometimes known as the binary entropy.
 
+We start by exploring the equation $-1(b ln(a) + (1 - b) ln(1 - a))$ in Desmos. (https://www.desmos.com/calculator) I am using $b$ in place of $y$ in Desmos because using $y$ is reserved for plotting functions. With $b = 0.5, a = 0.5$, we can see that any value of $a$ that we choose other than $a = b$ results in a higher cost than when $a = b$. We should try deriving the cost equation with respect to $a$ and see if subbing $a = y$ results in the derivative being zero. In addition, if we do a second derivative and the values are non negative, this would indicate that the area where the slope is equal to 0 is a minimum.
+
+![Graph of binary entropy at y = 0.5](C(a) graph.png)
+
+Let's find the derivative of the cost function with respect to $a$. We will use $n = 1$ to make this simpler.
+\begin{align*}
+C &= -\frac{1}{n} \sum_x [y ln(a) + (1 - y) ln(1 - a)] = -\sum_x [y ln(a) + (1 - y) ln(1 - a)]\\
+\frac{dC}{da} &= -\sum_x [\frac{y}{a} + \frac{(1 - y)}{(1 - a)} \times -1] = -\sum_x [\frac{y}{a} -\frac{(1 - y)}{(1 - a)}]\\
+\end{align*}
+If we sub $a = y$, we get:
+\begin{align*}
+\frac{dC}{da} &= -\sum_x [\frac{y}{y} - \frac{(1 - y)}{(1 - y)}]\\
+&= -\sum_x [1 - 1] = 0\\
+\end{align*}
+If we take $\frac{dC}{da} = 0$ and solve for $a$, we get:
+\begin{align*}
+0 &= -\sum_x [\frac{y}{a} -\frac{(1 - y)}{(1 - a)}]\\
+&= -\sum_x [\frac{y (1 - a) - a (1 - y)}{a (1 - a)}]\\
+&= -\sum_x [\frac{y - y a - a - a y}{a (1 - a)}]\\
+&= -\sum_x [\frac{y - a}{a (1 - a)}]
+\end{align*}
+
+We can see that the only solution to this is when $a = y$. So far we have shown that when $a = y$, this is either a minimum or a maximum. If we take the second derivative, and the derivative is always non negative, we can prove that this is a minimum and therefore $a = y$ minimizes cross entropy.
+
+\begin{align*}
+\frac{d}{da} \frac{dC}{da} = \frac{d^2 C}{(da)^2} &= -\sum_x [\frac{y}{a} -\frac{(1 - y)}{(1 - a)}]\\
+&= \frac{d}{da} -\sum_x [y a^{-1} - (1 - y) (1 - a)^{-1}]\\
+&= -\sum_x [-y a^{-2} + (1 - y) (1 - a)^{-2}]\\
+&= -\sum_x [\frac{-y}{a^2} + \frac{(1 - y)}{(1 - a)^2}]\\
+&= -\sum_x [\frac{-y (1 - a)^2 + a^2 (1 - y)}{a^2 (1 - a)^2}]\\
+&\\
+\frac{d^2 C}{(da)^2},\ a = y &= -\sum_x [\frac{-y (1 - y)^2 + y^2 (1 - y)}{y^2 (1 - y)^2}]\\
+&= \sum_x [\frac{y (1 - y)^2 - y^2 (1 - y)}{y^2 (1 - y)^2}]\\
+&= \sum_x [\frac{y - y^3 - y^2 + y^3}{y^2 (1 - y)^2}]\\
+&= \sum_x [\frac{y - y^2}{y^2 (1 - y)^2}]\\
+&= \sum_x [\frac{1 - y}{y (1 - y)^2}]\\
+&= \sum_x [\frac{1}{y (1 - y)}]\\
+\end{align*}
+
+$0 \leq y \leq 1$. $y$ and $(1 - y)$ are always non-negative. Therefore the denominator and the entire fraction are always non-negative. This indicates that the point we showed earlier is a minimum. Thus, $a = y$ minimizes cross entropy even when $y \neq 1$ or $y \neq 0$.
+
+
