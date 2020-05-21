@@ -492,6 +492,56 @@ If we take <span class="math inline">\(\frac{dC}{da} = 0\)</span> and solve for 
 \end{align*}\]</span>
 <p><span class="math inline">\(0 \leq y \leq 1\)</span>. <span class="math inline">\(y\)</span> and <span class="math inline">\((1 - y)\)</span> are always non-negative. Therefore the denominator and the entire fraction are always non-negative. This indicates that the point we showed earlier is a minimum. Thus, <span class="math inline">\(a = y\)</span> minimizes cross entropy even when <span class="math inline">\(y \neq 1\)</span> or <span class="math inline">\(y \neq 0\)</span>.</p>
 </div>
+<div id="sigmoid-output-layer-doesnt-form-a-probability-distribution" class="section level3">
+<h3>Sigmoid output layer doesn’t form a probability distribution</h3>
+<p>Construct an example showing explicitly that in a network with a sigmoid output layer, the output activation <span class="math inline">\(a_j^L\)</span> won’t always sum to 1.</p>
+Let’s use a neural network with just an input, output and a hidden layer with one neuron. We set <span class="math inline">\(\text{input} = 0.5\)</span>, <span class="math inline">\(w = 0\)</span>, and <span class="math inline">\(b = 0\)</span>.
+<span class="math display">\[\begin{align*}
+\sigma(0 (0.5) + 0) &amp;= \sigma(0)\\
+&amp;= \frac{1}{1 + e^0} = \frac{1}{1 + 1} = \frac{1}{2}
+\end{align*}\]</span>
+<p>If we sum up the neurons (there is only one neuron), we get <span class="math inline">\(a_j^L = \frac{1}{2}\)</span>, which is not equal to 1.</p>
+</div>
+<div id="monotonicity-of-softmax" class="section level3">
+<h3>Monotonicity of softmax</h3>
+<p>Show that <span class="math inline">\(\frac{\delta a_j^L}{\delta z_k^L}\)</span> is positive if <span class="math inline">\(j = k\)</span> and negative if <span class="math inline">\(j \neq k\)</span>. As a consequence, increasing <span class="math inline">\(z_j^L\)</span> is guaranteed to increase the corresponding output activation <span class="math inline">\(a_j^L\)</span> and will decrease all the other output activations. We already saw this empirically with the sliders, but this is a rigorous proof.</p>
+<p>If we think back to the sliders, we see that increasing a <span class="math inline">\(z\)</span> will increase its own <span class="math inline">\(a\)</span> whilst decreasing all other <span class="math inline">\(a\)</span>’s. <span class="math inline">\(\delta z_k^L\)</span> is the change in one of the sliders, and <span class="math inline">\(\delta a_j^L\)</span> is the change in one of the activations. <span class="math inline">\(\sum_k z_k^L\)</span> is the sum of values in all of the sliders. Given 4 neurons, <span class="math inline">\(\sum_k z_k^L\)</span> is really <span class="math inline">\(z_1^L + z_2^L + z_3^L + z_4^L\)</span>. <span class="math inline">\(\frac{\delta}{\delta z_3^L} z_1^L + z_2^L + z_3^L + z_4^L = 1\)</span>. This notation is confusing for me so instead, I like to think of <span class="math inline">\(\sum_k z_k^L\)</span> as <span class="math inline">\(\sum_i z_i^L\)</span> instead, where <span class="math inline">\(i\)</span> is the number of neurons, <span class="math inline">\(k\)</span> is the slider you are changing, and <span class="math inline">\(j\)</span> is the activation you are observing.</p>
+If <span class="math inline">\(j \neq k\)</span>:
+<span class="math display">\[\begin{align*}
+\frac{\delta a_j^L}{\delta z_k^L} &amp;= \frac{\delta}{\delta z_k^L} a_j^L\\
+&amp;= \frac{\delta}{\delta z_k^L} \frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
+&amp;= e^{z_j^L} \frac{\delta}{\delta z_k^L} \frac{1}{\sum_k e^{z_k^L}}\\
+&amp;= e^{z_j^L} \frac{\delta}{\delta z_k^L} (\sum_k e^{z_k^L})^{-1}\\
+&amp;= e^{z_j^L} \times -(\sum_k e^{z_k^L})^{-2} = -\frac{e^{z_j^L}}{(\sum_k e^{z_k^L})^2}
+\end{align*}\]</span>
+<p>We can see that <span class="math inline">\(\frac{\delta a_j^L}{\delta z_k^L}\)</span> is negative when <span class="math inline">\(j \neq k\)</span> because the denominator is squared and therefore non-negative, and the numerator is negative.</p>
+<p>If <span class="math inline">\(j = k\)</span>: Let’s use <span class="math inline">\(\sum_k e^{z_k^L}\)</span> as <span class="math inline">\(g(z_k^L)\)</span>. If we try <span class="math inline">\(k = 2\)</span> and find <span class="math inline">\(\frac{\delta g}{\delta z_k^L}\)</span>, we get <span class="math inline">\(\frac{\delta}{\delta z_k^L} \sum_k e^{z_k^L} = \frac{\delta}{\delta z_k^L} e^{z_1^L} + e^{z_2^L} = e^{z_2^L}\)</span>. Thus, <span class="math inline">\(g' = e^{z_k^L}\)</span>.</p>
+We will use these in the chain rule step later on: <span class="math inline">\(\begin{array}{c c c c} f = e^{z_k^L} &amp; f' = e^{z_k^L} &amp; g = \sum_k e^{z_k^L} &amp; g' = e^{z_k^L} \end{array}\)</span>
+<span class="math display">\[\begin{align*}
+\frac{\delta a_j^L}{\delta z_k^L} &amp;= \frac{\delta}{\delta z_k^L} \frac{e^{z_k^L}}{\sum_k e^{z_k^L}} = \frac{f' g - g' f}{(g')^2}\\
+&amp;= \frac{e^{z_k^L} \sum_k e^{z_k^L} - e^{z_k^L} e^{z_k^L}}{(e^{z_k^L})^2}\\
+&amp;= e^{z_k^L} \frac{\sum_k e^{z_k^L} - e^{z_k^L}}{(e^{z_k^L})^2}\\
+&amp;= \frac{\sum_k e^{z_k^L} - e^{z_k^L}}{e^{z_k^L}}
+\end{align*}\]</span>
+<p>We know that the answer is positive because the denominator is <span class="math inline">\(e\)</span> and the numerator is just a sum of all <span class="math inline">\(e\)</span>’s except for the <span class="math inline">\(k^{\text{th}} e\)</span>, which is positive as well. Therefore the entire fraction is positive.</p>
+</div>
+<div id="non-locality-of-softmax" class="section level3">
+<h3>Non-locality of softmax</h3>
+<p>A nice thing about sigmoid layers is that the output <span class="math inline">\(a_j^L\)</span> is a function of the corresponding weighted input, <span class="math inline">\(a_j^L = \sigma(z_j^L)\)</span>. Explain why this is not the case for a softmax layer: any particular output activation <span class="math inline">\(a_j^L\)</span> depends on  the weighted inputs.</p>
+</div>
+<div id="inverting-the-softmax-layer" class="section level3">
+<h3>Inverting the softmax layer</h3>
+<p>Suppose we have a neural network with a softmax output layer, and the activations <span class="math inline">\(a_j^L\)</span> are known. Show that the corresponding weighted inputs have the form <span class="math inline">\(z_j^L = ln a_j^L + C\)</span> for some constant C that is independent of <span class="math inline">\(j\)</span>.</p>
+<span class="math display">\[\begin{align*}
+a_j^L &amp;= \frac{e^{z_j^L}{\sum_k e^{z_k^L}}\\
+ln(a_j^L) &amp;= ln(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
+&amp;= ln(e^{z_j^L}) - ln(\sum_k e^{z_k^L})\\
+&amp;= z_j^L - ln(\sum_i e^{z_k^L})\\
+z_j^L &amp;= a_j^L + ln(\sum_i e^{z_k^L})\\
+&amp;= a_j^L + C
+\end{align*}\]</span>
+<p><span class="math inline">\(ln(\sum_i e^{z_k^L})\)</span> is rewritten as <span class="math inline">\(C\)</span> because the value itself doesn’t depend on whether <span class="math inline">\(j = 1\)</span> or <span class="math inline">\(j = 2\)</span>. While the value may change if <span class="math inline">\(z_j^L\)</span> changes, the value doesn’t depend on which <span class="math inline">\(j\)</span> you choose which means that <span class="math inline">\(C\)</span> is independent of <span class="math inline">\(j\)</span>.</p>
+</div>
 </div>
 
 

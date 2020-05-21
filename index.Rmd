@@ -342,7 +342,7 @@ If we take $\frac{dC}{da} = 0$ and solve for $a$, we get:
 &= -\sum_x [\frac{y - a}{a (1 - a)}]
 \end{align*}
 
-We can see that the only solution to this is when $a = y$. So far we have shown that when $a = y$, this is either a minimum or a maximum. If we take the second derivative, and the derivative is always non negative, we can prove that this is a minimum and therefore $a = y$ minimizes cross entropy.
+We can see that the only solution to this is when $a = y$. So far we have shown that when $a = y$, this is either a minimum or a maximum. If we take the second derivative, and the derivative is always non negative, we can prove that this is a minimum and therefore $a = y$ minimizes cross entropy.  
 
 \begin{align*}
 \frac{d}{da} \frac{dC}{da} = \frac{d^2 C}{(da)^2} &= -\sum_x [\frac{y}{a} -\frac{(1 - y)}{(1 - a)}]\\
@@ -359,6 +359,61 @@ We can see that the only solution to this is when $a = y$. So far we have shown 
 &= \sum_x [\frac{1}{y (1 - y)}]\\
 \end{align*}
 
-$0 \leq y \leq 1$. $y$ and $(1 - y)$ are always non-negative. Therefore the denominator and the entire fraction are always non-negative. This indicates that the point we showed earlier is a minimum. Thus, $a = y$ minimizes cross entropy even when $y \neq 1$ or $y \neq 0$.
+$0 \leq y \leq 1$. $y$ and $(1 - y)$ are always non-negative. Therefore the denominator and the entire fraction are always non-negative. This indicates that the point we showed earlier is a minimum. Thus, $a = y$ minimizes cross entropy even when $y \neq 1$ or $y \neq 0$.  
 
+### Sigmoid output layer doesn't form a probability distribution
+Construct an example showing explicitly that in a network with a sigmoid output layer, the output activation $a_j^L$ won't always sum to 1.  
+
+Let's use a neural network with just an input, output and a hidden layer with one neuron. We set $\text{input} = 0.5$, $w = 0$, and $b = 0$.
+\begin{align*}
+\sigma(0 (0.5) + 0) &= \sigma(0)\\
+&= \frac{1}{1 + e^0} = \frac{1}{1 + 1} = \frac{1}{2}
+\end{align*}
+If we sum up the neurons (there is only one neuron), we get $a_j^L = \frac{1}{2}$, which is not equal to 1.  
+
+### Monotonicity of softmax
+Show that $\frac{\delta a_j^L}{\delta z_k^L}$ is positive if $j = k$ and negative if $j \neq k$. As a consequence, increasing $z_j^L$ is guaranteed to increase the corresponding output activation $a_j^L$ and will decrease all the other output activations. We already saw this empirically with the sliders, but this is a rigorous proof.  
+
+If we think back to the sliders, we see that increasing a $z$ will increase its own $a$ whilst decreasing all other $a$'s. $\delta z_k^L$ is the change in one of the sliders, and $\delta a_j^L$ is the change in one of the activations. $\sum_k z_k^L$ is the sum of values in all of the sliders. Given 4 neurons, $\sum_k z_k^L$ is really $z_1^L + z_2^L + z_3^L + z_4^L$. $\frac{\delta}{\delta z_3^L} z_1^L + z_2^L + z_3^L + z_4^L = 1$. This notation is confusing for me so instead, I like to think of $\sum_k z_k^L$ as $\sum_i z_i^L$ instead, where $i$ is the number of neurons, $k$ is the slider you are changing, and $j$ is the activation you are observing.  
+
+If $j \neq k$:
+\begin{align*}
+\frac{\delta a_j^L}{\delta z_k^L} &= \frac{\delta}{\delta z_k^L} a_j^L\\
+&= \frac{\delta}{\delta z_k^L} \frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
+&= e^{z_j^L} \frac{\delta}{\delta z_k^L} \frac{1}{\sum_k e^{z_k^L}}\\
+&= e^{z_j^L} \frac{\delta}{\delta z_k^L} (\sum_k e^{z_k^L})^{-1}\\
+&= e^{z_j^L} \times -(\sum_k e^{z_k^L})^{-2} = -\frac{e^{z_j^L}}{(\sum_k e^{z_k^L})^2}
+\end{align*}
+We can see that $\frac{\delta a_j^L}{\delta z_k^L}$ is negative when $j \neq k$ because the denominator is squared and therefore non-negative, and the numerator is negative.  
+
+If $j = k$:
+Let's use $\sum_k e^{z_k^L}$ as $g(z_k^L)$. If we try $k = 2$ and find $\frac{\delta g}{\delta z_k^L}$, we get $\frac{\delta}{\delta z_k^L} \sum_k e^{z_k^L} = \frac{\delta}{\delta z_k^L} e^{z_1^L} + e^{z_2^L} = e^{z_2^L}$. Thus, $g' = e^{z_k^L}$.  
+
+We will use these in the chain rule step later on:
+$\begin{array}{c c c c}
+f = e^{z_k^L} & f' = e^{z_k^L} & g = \sum_k e^{z_k^L} & g' = e^{z_k^L}
+\end{array}$
+\begin{align*}
+\frac{\delta a_j^L}{\delta z_k^L} &= \frac{\delta}{\delta z_k^L} \frac{e^{z_k^L}}{\sum_k e^{z_k^L}} = \frac{f' g - g' f}{(g')^2}\\
+&= \frac{e^{z_k^L} \sum_k e^{z_k^L} - e^{z_k^L} e^{z_k^L}}{(e^{z_k^L})^2}\\
+&= e^{z_k^L} \frac{\sum_k e^{z_k^L} - e^{z_k^L}}{(e^{z_k^L})^2}\\
+&= \frac{\sum_k e^{z_k^L} - e^{z_k^L}}{e^{z_k^L}}
+\end{align*}
+We know that the answer is positive because the denominator is $e$ and the numerator is just a sum of all $e$'s except for the $k^{\text{th}} e$, which is positive as well. Therefore the entire fraction is positive.  
+
+### Non-locality of softmax
+A nice thing about sigmoid layers is that the output $a_j^L$ is a function of the corresponding weighted input, $a_j^L = \sigma(z_j^L)$. Explain why this is not the case for a softmax layer: any particular output activation $a_j^L$ depends on \textit{all} the weighted inputs.  
+
+### Inverting the softmax layer
+Suppose we have a neural network with a softmax output layer, and the activations $a_j^L$ are known. Show that the corresponding weighted inputs have the form $z_j^L = ln a_j^L + C$ for some constant C that is independent of $j$.  
+
+\begin{align*}
+a_j^L &= \frac{e^{z_j^L}{\sum_k e^{z_k^L}}\\
+ln(a_j^L) &= ln(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
+&= ln(e^{z_j^L}) - ln(\sum_k e^{z_k^L})\\
+&= z_j^L - ln(\sum_i e^{z_k^L})\\
+z_j^L &= a_j^L + ln(\sum_i e^{z_k^L})\\
+&= a_j^L + C
+\end{align*}
+$ln(\sum_i e^{z_k^L})$ is rewritten as $C$ because the value itself doesn't depend on whether $j = 1$ or $j = 2$. While the value may change if $z_j^L$ changes, the value doesn't depend on which $j$ you choose which means that $C$ is independent of $j$.
 
