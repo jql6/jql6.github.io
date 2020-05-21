@@ -408,7 +408,7 @@ A nice thing about sigmoid layers is that the output $a_j^L$ is a function of th
 Suppose we have a neural network with a softmax output layer, and the activations $a_j^L$ are known. Show that the corresponding weighted inputs have the form $z_j^L = ln a_j^L + C$ for some constant C that is independent of $j$.  
 
 \begin{align*}
-a_j^L &= \frac{e^{z_j^L}{\sum_k e^{z_k^L}}\\
+a_j^L &= \frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
 ln(a_j^L) &= ln(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
 &= ln(e^{z_j^L}) - ln(\sum_k e^{z_k^L})\\
 &= z_j^L - ln(\sum_i e^{z_k^L})\\
@@ -417,3 +417,4 @@ z_j^L &= a_j^L + ln(\sum_i e^{z_k^L})\\
 \end{align*}
 $ln(\sum_i e^{z_k^L})$ is rewritten as $C$ because the value itself doesn't depend on whether $j = 1$ or $j = 2$. While the value may change if $z_j^L$ changes, the value doesn't depend on which $j$ you choose which means that $C$ is independent of $j$.
 
+### Derive $\frac{\delta C}{\delta b_j^L} = a_j^L - y_j$ and $\frac{\delta C}{\delta w_{j k}^L} = a_k^{L - 1} (a_j^L - y_j)$

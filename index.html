@@ -533,7 +533,7 @@ We will use these in the chain rule step later on: <span class="math inline">\(\
 <h3>Inverting the softmax layer</h3>
 <p>Suppose we have a neural network with a softmax output layer, and the activations <span class="math inline">\(a_j^L\)</span> are known. Show that the corresponding weighted inputs have the form <span class="math inline">\(z_j^L = ln a_j^L + C\)</span> for some constant C that is independent of <span class="math inline">\(j\)</span>.</p>
 <span class="math display">\[\begin{align*}
-a_j^L &amp;= \frac{e^{z_j^L}{\sum_k e^{z_k^L}}\\
+a_j^L &amp;= \frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
 ln(a_j^L) &amp;= ln(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
 &amp;= ln(e^{z_j^L}) - ln(\sum_k e^{z_k^L})\\
 &amp;= z_j^L - ln(\sum_i e^{z_k^L})\\
@@ -541,6 +541,9 @@ z_j^L &amp;= a_j^L + ln(\sum_i e^{z_k^L})\\
 &amp;= a_j^L + C
 \end{align*}\]</span>
 <p><span class="math inline">\(ln(\sum_i e^{z_k^L})\)</span> is rewritten as <span class="math inline">\(C\)</span> because the value itself doesn’t depend on whether <span class="math inline">\(j = 1\)</span> or <span class="math inline">\(j = 2\)</span>. While the value may change if <span class="math inline">\(z_j^L\)</span> changes, the value doesn’t depend on which <span class="math inline">\(j\)</span> you choose which means that <span class="math inline">\(C\)</span> is independent of <span class="math inline">\(j\)</span>.</p>
+</div>
+<div id="derive-fracdelta-cdelta-b_jl-a_jl---y_j-and-fracdelta-cdelta-w_j-kl-a_kl---1-a_jl---y_j" class="section level3">
+<h3>Derive <span class="math inline">\(\frac{\delta C}{\delta b_j^L} = a_j^L - y_j\)</span> and <span class="math inline">\(\frac{\delta C}{\delta w_{j k}^L} = a_k^{L - 1} (a_j^L - y_j)\)</span></h3>
 </div>
 </div>
 
