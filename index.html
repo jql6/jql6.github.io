@@ -544,6 +544,109 @@ z_j^L &amp;= a_j^L + ln(\sum_i e^{z_k^L})\\
 </div>
 <div id="derive-fracdelta-cdelta-b_jl-a_jl---y_j-and-fracdelta-cdelta-w_j-kl-a_kl---1-a_jl---y_j" class="section level3">
 <h3>Derive <span class="math inline">\(\frac{\delta C}{\delta b_j^L} = a_j^L - y_j\)</span> and <span class="math inline">\(\frac{\delta C}{\delta w_{j k}^L} = a_k^{L - 1} (a_j^L - y_j)\)</span></h3>
+<p>Note that the cost function is simplified to <span class="math inline">\(C \equiv -\text{ln}(a_y^L)\)</span>, where <span class="math inline">\(y\)</span> is a vector of 0’s with one 1 at the desired class. If we think back to classifying digits and our desired answer is 7, then the <span class="math inline">\(y\)</span> vector is a bunch of 0’s with a 1 at the neuron for 7’s output. If the neurons are ordered from 0-9, then the eight neuron would refer to the activation for detecting 7 from the image.</p>
+<p>The full cost function equation is actually <span class="math inline">\(-\sum_j(y_j \text{ln}(a_j^L))\)</span> from dontloo’s post . We know that all <span class="math inline">\(y\)</span>’s are 0 unless it’s our desired class, and so we get <span class="math inline">\(0 + 0 + 0 + ... + \text{ln} a_y^L + 0 + ...\)</span> where <span class="math inline">\(a_y^L\)</span> is the activation that is multiplied by 1 instead of 0. Therefore, we will derive <span class="math inline">\(y_j \text{ln}(a_j^L)\)</span> with respect to <span class="math inline">\(b_j^L\)</span>.</p>
+<span class="math display">\[\begin{align*}
+C &amp;= -\sum_j (y_j \text{ln}(a_j^L))\\
+z_j^L &amp;= \sum_k w_{j k}^L a_k^{L - 1} + b_j^L\\
+\frac{\delta C}{\delta b_j^L} &amp;= \frac{\delta}{\delta b_j^L} -\sum_j (y_j \text{ln}(a_j^L)) = \frac{\delta}{\delta z_j^L} -\sum_j (y_j \text{ln}(a_j^L)) \frac{\delta z_j^L}{\delta b_j^L}\\
+&amp;= \frac{\delta}{\delta z_j^L} -\sum_j (y_j \text{ln}(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}})) \frac{\delta}{\delta b_j^L} w_{j k}^L a_k^{L - 1} + b_j^L\\
+&amp;= \frac{\delta}{\delta z_j^L} -\sum_j y_j (\text{ln}(e^{z_j^L}) - \text{ln}(\sum_k e^{z_k^L}))\\
+&amp;= \frac{\delta}{\delta z_j^L} -\sum_j y_j(z_j^L - \text{ln}(\sum_k e^{z_k^L}))\\
+&amp;= -\sum_j y_j - \frac{y_j}{\sum_k e^{z_k^L}} \times e^{z_j^L} = -\sum_j y_j - y_j \frac{e^{z_j^L}}{\sum_k e^{z_k^L}}\\
+&amp;= -\sum_j y_j - y_j a_j^L = \sum_j y_j a_j^L - y_j\\
+&amp;= a_j^L - y_j\\
+\end{align*}\]</span>
+<p>In the second last step, we realize that <span class="math inline">\(y_j\)</span> is a vector of 0’s with one 1. Therefore we remove the summation sign because only one term is not multiplied by 0. We simplify the <span class="math inline">\(y_j a_j^L\)</span> term to <span class="math inline">\(a_j^L\)</span> because we know that <span class="math inline">\(y_j = 1\)</span>, and to match the answer that the question asks for.</p>
+<span class="math display">\[\begin{align*}
+\frac{\delta C}{\delta w_{jk}^L} &amp;= \frac{\delta}{\delta z_j^L} -\sum_j (y_j \text{ln}(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}})) \frac{\delta}{\delta w_{jk}^L} w_{jk}^L a_k^{L - 1} + b_j^L\\
+&amp;= \frac{\delta}{\delta z_j^L} -\sum_j (y_j \text{ln}(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}})) a_k^{L - 1} = a_k^{L - 1} \frac{\delta}{\delta z_j^L} -\sum_j (y_j \text{ln}(\frac{e^{z_j^L}}{\sum_k e^{z_k^L}})) a_k^{L - 1}\\
+&amp;= a_k^{L - 1} (a_j^L - y_j)
+\end{align*}\]</span>
+<p>In the second last step, we substitute the answer we already have from above to to reach the last step.</p>
+</div>
+<div id="where-does-the-softmax-name-come-from" class="section level3">
+<h3>Where does the “softmax” name come from?</h3>
+<p>Suppose we change the softmax function so the output activations are given by <span class="math display">\[a_j^L = \frac{e^{c z_j^L}}{\sum_k e^{c z_k^L}}\]</span> where <span class="math inline">\(c\)</span> is a positive constant. Note that <span class="math inline">\(c = 1\)</span> corresponds to the standard softmax function. But if we use a different value of <span class="math inline">\(c\)</span> we get a different function, which is nonetheless qualitatively rather similar to the softmax. In particular, show that the output activtions form a probability distribbution, just as for the usual softmax. Suppose we allow <span class="math inline">\(c\)</span> to become large, i.e., <span class="math inline">\(c \rightarrow \infty\)</span>. What is the limiting value for the output activations <span class="math inline">\(a_j^L\)</span>? After solving this problem it should be clear to you why we think of the <span class="math inline">\(c = 1\)</span> function as a “softened” version of the maximum function. This is the origin of the term “softmax”.</p>
+<p>This can be done by graphing in Desmos and just choosing a <span class="math inline">\(k\)</span> value. I noticed that the fraction always stays between 0 and 1. I am having a hard time justifying it mathematically right now so I’m going to move on. I will give it another shot at the end of the chapter. We can try to first confirm that the fraction will be between 0 and 1, then reason out why the sum of them must equal to 1. We can then try the <span class="math inline">\(c \rightarrow \infty\)</span> portion.</p>
+</div>
+<div id="large-rotations-of-training-images" class="section level3">
+<h3>Large rotations of training images}</h3>
+<p>As discussed above, one way of expanding the MNIST training data is to use small rotations of training images. What’s a problem that might occur if we allow arbitrarily large rotations of training images?</p>
+<p>If 6 or 9 are rotated enough, then they will look like each other. The network will classify upside down sixes as nines, and upside down nines as sixes.</p>
+</div>
+<div id="initializing-weights-with-different-sds" class="section level3">
+<h3>Initializing weights with different SD’s</h3>
+<p>Verify that the standard deviation of <span class="math inline">\(z = \sum_j w_j x_j + b\)</span> in the paragraph above is <span class="math inline">\(\sqrt{\frac{3}{2}}\)</span>. It may help to know that: (a) the variance of a sum of independent random variables is the sum of the variances of the individual random variables; and (b) the variance is the square of the standard deviation.</p>
+<p>Remember that half of the inputs are 0’s, and half of them are 1’s. It was stated earlier that the standard deviation of the new normal random variables are <span class="math inline">\(\frac{1}{\sqrt{n_{in}}}\)</span>, where <span class="math inline">\(n_{in}\)</span> is the number of input weights. Also, <span class="math inline">\(b\)</span> is not a constant; it is a standardized normal random variable. We are generating it.</p>
+<span class="math display">\[\begin{align*}
+Var(b) &amp;= 1\\
+SD(w_j) &amp;= \frac{1}{\sqrt{n_{in}}}\\
+Var(w_j) &amp;= \frac{1}{n_{in}}\\
+n_{in} &amp;= 1000\\
+z &amp;= \sum_j w_j x_j + b\\
+Var(z) &amp;= \sum_j x_j^2 Var(w_j) + Var(b)\\
+&amp;= \sum_j x_j Var(w_j) + Var(b) \text{ because $x_j$ is either 1's or 0's, squaring them gives the same results.}\\
+&amp;= (500 \times \frac{1}{1000} + 0 \times \frac{1}{1000}) + 1\\
+&amp;= \frac{1}{2} + 1 = \frac{3}{2}\\
+SD(w_j) &amp;= \sqrt{\frac{3}{2}}
+\end{align*}\]</span>
+</div>
+<div id="learning-schedule" class="section level3">
+<h3>Learning schedule</h3>
+<p>Modify  so that it implements a learning schedule that: halves the learning rate each time the validation accuracy satisfies the no-improvement-in-10 rule; and terminates when the learning rate has dropped to 1/128 of its original value.\</p>
+<p>See file</p>
+</div>
+<div id="gradient-descent-on-hyper-parameters" class="section level3">
+<h3>Gradient descent on hyper-parameters</h3>
+<p>It’s tempting to use gradient descent to try to learn good values for hyper-parameters such as <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\eta\)</span>. Can you think of an obstacle to using gradient descent to determine <span class="math inline">\(\lambda\)</span>? Can you think of an obstacle to using gradient descent to determine <span class="math inline">\(\eta\)</span>?\</p>
+<p>I’m not really clear on this one, I’ve managed to search up  though.</p>
+<p>If I wanted to continue, I would probably start by investigating the gradients of <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\eta\)</span> and see which comment holds more weight.</p>
+</div>
+<div id="momentum-co-efficient-1" class="section level3">
+<h3>Momentum co-efficient &gt; 1</h3>
+<p>What would go wrong if we used <span class="math inline">\(\mu &gt; 1\)</span> in the momentum technique?\</p>
+<span class="math display">\[v \rightarrow v' = \mu v - \eta \nabla C\]</span> So far, the ball rolling down a hill analogy has been used. Let’s take a look at what happens when the ball rolls to the bottom of a hill. Here, we’ll say that its velocity is 3 and the gradient is 0. We’ll use 1.1 as our <span class="math inline">\(\mu\)</span> value.
+<span class="math display">\[\begin{align*}
+v' &amp;= \mu v - \eta \nabla C\\
+&amp;= 1.1 (3) - 0 = 3.3\\
+&amp;= 1.1 (3.3) - 0 = 3.63\\
+&amp;= 1.1 (3.63) - 0 = 3.993\\
+\end{align*}\]</span>
+<p>Here we can see that the speed continually increases even though it’s on a flat surface! It’s clear that if <span class="math inline">\(\mu &gt; 1\)</span>, the ball will continue to accelerate, even if it weren’t on a flat surface, because the gradient will always be negative, meaning that the entire equation will be positive.</p>
+</div>
+<div id="momentum-co-efficient-0" class="section level3">
+<h3>Momentum co-efficient &lt; 0</h3>
+<p>What would go wrong if we used <span class="math inline">\(\mu &lt; 0\)</span> in the momentum technique?\</p>
+<span class="math display">\[\begin{align*}
+v' &amp;= \mu v - \eta \nabla C\\
+&amp;= -5 \cdot (1) - 0 = -5\\
+&amp;= -5 \cdot (-5) - 0 = 25\\
+&amp;= -5 \cdot (25) - 0 = -125\\
+\end{align*}\]</span>
+<p>Here we start with a ball on a flat surface with some initial velocity. We can see that it oscillates around a point and its oscillation distance keep increasing.\</p>
+<span class="math display">\[\begin{align*}
+v' &amp;= \mu v - \eta \nabla C\\
+&amp;= 0.3 \cdot (1) - 0 = 0.3\\
+&amp;= 0.3 \cdot (0.3) - 0 = 0.09\\
+&amp;= 0.3 \cdot (0.09) - 0 = 0.0027\\
+\end{align*}\]</span>
+<p>Here we can see that if <span class="math inline">\(0 \leq \mu \leq 1\)</span>, then the ball’s speed will not spiral out of control.</p>
+</div>
+<div id="relationship-between-sigmoid-neuron-and-tanh-neuron" class="section level3">
+<h3>Relationship between sigmoid neuron and tanh neuron</h3>
+<p>Prove the identity in Equation (111). The identity is: <span class="math display">\[\sigma(z) = \frac{1 + tanh(\frac{z}{2})}{2}\]</span></p>
+<span class="math display">\[\begin{align*}
+\sigma(z) = \frac{1}{1 + e^{-z}} &amp;= \frac{1 + \text{tanh}(\frac{z}{2})}{2}\\
+&amp;= \frac{1 + \frac{ e^{\frac{z}{2}} - e^{\frac{-z}{2}} }{ e^{\frac{z}{2}} + e^{\frac{-z}{2}}} }{ 2 }\\
+&amp;= \frac{\frac{ e^{\frac{z}{2}} + e^{\frac{-z}{2}} }{ e^{\frac{z}{2}} + e^{\frac{-z}{2}}} + \frac{ e^{\frac{z}{2}} - e^{\frac{-z}{2}} }{ e^{\frac{z}{2}} + e^{\frac{-z}{2}}} }{ 2 }\\
+&amp;= \frac{\frac{ e^{\frac{z}{2}} + e^{\frac{-z}{2}} + e^{\frac{z}{2}} - e^{\frac{-z}{2}} }{ e^{\frac{z}{2}} + e^{\frac{-z}{2}}} }{ 2 }\\
+&amp;= \frac{2 e^{\frac{z}{2}}}{2 (e^{\frac{z}{2}} + e^{\frac{-z}{2}})}\\
+&amp;= \frac{e^{\frac{z}{2}}}{e^{\frac{z}{2}} + e^{\frac{-z}{2}}}\\
+&amp;= \frac{ \frac{e^{\frac{z}{2}}}{e^{\frac{z}{2}}} }{ \frac{e^{\frac{z}{2}}}{e^{\frac{z}{2}}} + \frac{e^{\frac{-z}{2}}}{e^{\frac{z}{2}}} }\\
+&amp;= \frac{1}{1 + \frac{1}{(e^{\frac{z}{2}})^2}}\\
+&amp;= \frac{1}{1 + e^{-z}}
+\end{align*}\]</span>
 </div>
 </div>
 
