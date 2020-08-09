@@ -13,7 +13,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-[Return to homepage](http://neuralnetworksanddeeplearning.com/index.html)
+[Return to homepage](https://jql6.github.io/)
 
 Exercises from this [book by Michael Nielsen](http://neuralnetworksanddeeplearning.com/index.html).
 
