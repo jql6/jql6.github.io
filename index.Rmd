@@ -64,7 +64,7 @@ We can see that if a perceptron's $w \cdot x + b = 0$, then replacing it with a 
 ### Bitwise digit representation
 There is a way of determining the bitwise representation of a digit by adding an extra layer to the three-layer network above. The extra layer converts the output from the previous layer into a binary representation, as illustrated in the figure below. Find a set of weights and biases for the new output layer. Assume that the first 3 layers of neurons are such that the correct output in the third layer (i.e., the old output layer) has activation at least 0.99, and incorrect outputs have activation less than 0.01.  
 
-![Bitwise digit neural network diagram (image taken from the textbook)](Bitwise.png)
+![Bitwise digit neural network diagram (image taken from the textbook)](images/Bitwise.png)
 
 \begin{array}{c | c}
 \text{bitwise} & \text{number}\\
@@ -146,7 +146,7 @@ result as the rule 4 for computing the output of a sigmoid neuron.
 
 Start with second layer two neurons, third layer one neurons to clarify the subscripts. $w_{j k}$ is the weight between $k$th neuron in the second layer and $j$th neuron in the third layer.
 
-![Second and third layers](Layers.png)
+![Second and third layers](images/Layers.png)
 
 The activation is $\sum_{k = 1}^2 w_{1k} x_k + b$ or $w_{11} x_1 + w_{12} x_2 + b$. Now let's generalize to a second layer with $k$ neurons and focus on a single neuron in the third layer, then apply the $\sigma$ function.
 \begin{align*}
@@ -323,7 +323,7 @@ The quantity $-[y ln(y) + (1 - y) ln(1 - y)]$ is sometimes known as the binary e
 
 We start by exploring the equation $-1(b ln(a) + (1 - b) ln(1 - a))$ in Desmos. (https://www.desmos.com/calculator) I am using $b$ in place of $y$ in Desmos because using $y$ is reserved for plotting functions. With $b = 0.5, a = 0.5$, we can see that any value of $a$ that we choose other than $a = b$ results in a higher cost than when $a = b$. We should try deriving the cost equation with respect to $a$ and see if subbing $a = y$ results in the derivative being zero. In addition, if we do a second derivative and the values are non negative, this would indicate that the area where the slope is equal to 0 is a minimum.
 
-![Graph of binary entropy at y = 0.5](C(a) graph.png)
+![Graph of binary entropy at y = 0.5](images/C(a) graph.png)
 
 Let's find the derivative of the cost function with respect to $a$. We will use $n = 1$ to make this simpler.
 \begin{align*}
