@@ -1,0 +1,39 @@
+/*Homepage stylesheet*/
+
+.center_border{
+  margin: auto;
+  border: 6px solid #969696;
+  padding: 2px;
+  text-align: center;
+}
+
+/* This makes the grid's row height match the column width somehow. */
+.container div::before {
+  content: "";
+  padding-bottom: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.container {
+  font-size: 40px;
+  text-align: center;
+  width: 98%;
+  background: #969696;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+  border: 5px solid #969696;
+  margin: auto;
+}
+
+.d1{background: #FFF;}
+.d2{background: #1FF;}
+.d3{background: #F1F;}
+.d4{background: #FF1;}
+.d5{background: #11F;}
+.d6{background: #1F1;}
+.d7{background: #F11;}
+.d8{background: #999;}
+.d9{background: #222;}
