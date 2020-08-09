@@ -185,7 +185,8 @@ summary {
 </div>
 
 
-<p>Exercises from this book by Michael Nielsen: <a href="http://neuralnetworksanddeeplearning.com/index.html" class="uri">http://neuralnetworksanddeeplearning.com/index.html</a></p>
+<p><a href="http://neuralnetworksanddeeplearning.com/index.html">Return to homepage</a></p>
+<p>Exercises from this <a href="http://neuralnetworksanddeeplearning.com/index.html">book by Michael Nielsen</a>.</p>
 <div id="chapter-1-exercises" class="section level2">
 <h2>Chapter 1 exercises</h2>
 <div id="sigmoid-neurons-simulating-perceptrons-part-1" class="section level3">
@@ -545,7 +546,7 @@ z_j^L &amp;= a_j^L + ln(\sum_i e^{z_k^L})\\
 <div id="derive-fracdelta-cdelta-b_jl-a_jl---y_j-and-fracdelta-cdelta-w_j-kl-a_kl---1-a_jl---y_j" class="section level3">
 <h3>Derive <span class="math inline">\(\frac{\delta C}{\delta b_j^L} = a_j^L - y_j\)</span> and <span class="math inline">\(\frac{\delta C}{\delta w_{j k}^L} = a_k^{L - 1} (a_j^L - y_j)\)</span></h3>
 <p>Note that the cost function is simplified to <span class="math inline">\(C \equiv -\text{ln}(a_y^L)\)</span>, where <span class="math inline">\(y\)</span> is a vector of 0’s with one 1 at the desired class. If we think back to classifying digits and our desired answer is 7, then the <span class="math inline">\(y\)</span> vector is a bunch of 0’s with a 1 at the neuron for 7’s output. If the neurons are ordered from 0-9, then the eight neuron would refer to the activation for detecting 7 from the image.</p>
-<p>The full cost function equation is actually <span class="math inline">\(-\sum_j(y_j \text{ln}(a_j^L))\)</span> from dontloo’s post . We know that all <span class="math inline">\(y\)</span>’s are 0 unless it’s our desired class, and so we get <span class="math inline">\(0 + 0 + 0 + ... + \text{ln} a_y^L + 0 + ...\)</span> where <span class="math inline">\(a_y^L\)</span> is the activation that is multiplied by 1 instead of 0. Therefore, we will derive <span class="math inline">\(y_j \text{ln}(a_j^L)\)</span> with respect to <span class="math inline">\(b_j^L\)</span>.</p>
+<p>The full cost function equation is actually <span class="math inline">\(-\sum_j(y_j \text{ln}(a_j^L))\)</span> from <a href="https://stats.stackexchange.com/questions/223799/different-definitions-of-the-cross-entropy-loss-function/224491#224491">dontloo’s post</a>. We know that all <span class="math inline">\(y\)</span>’s are 0 unless it’s our desired class, and so we get <span class="math inline">\(0 + 0 + 0 + ... + \text{ln} a_y^L + 0 + ...\)</span> where <span class="math inline">\(a_y^L\)</span> is the activation that is multiplied by 1 instead of 0. Therefore, we will derive <span class="math inline">\(y_j \text{ln}(a_j^L)\)</span> with respect to <span class="math inline">\(b_j^L\)</span>.</p>
 <span class="math display">\[\begin{align*}
 C &amp;= -\sum_j (y_j \text{ln}(a_j^L))\\
 z_j^L &amp;= \sum_k w_{j k}^L a_k^{L - 1} + b_j^L\\
@@ -600,7 +601,7 @@ SD(w_j) &amp;= \sqrt{\frac{3}{2}}
 <div id="gradient-descent-on-hyper-parameters" class="section level3">
 <h3>Gradient descent on hyper-parameters</h3>
 <p>It’s tempting to use gradient descent to try to learn good values for hyper-parameters such as <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\eta\)</span>. Can you think of an obstacle to using gradient descent to determine <span class="math inline">\(\lambda\)</span>? Can you think of an obstacle to using gradient descent to determine <span class="math inline">\(\eta\)</span>?\</p>
-<p>I’m not really clear on this one, I’ve managed to search up  though.</p>
+<p>I’m not really clear on this one, I’ve managed to search up <a href="https://cs.stackexchange.com/questions/74561/what-are-the-challenges-of-using-gradient-descent-on-hyper-parameters-%CE%BB-and-%CE%B7-to">a few explanations</a> though.</p>
 <p>If I wanted to continue, I would probably start by investigating the gradients of <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\eta\)</span> and see which comment holds more weight.</p>
 </div>
 <div id="momentum-co-efficient-1" class="section level3">
@@ -654,7 +655,7 @@ v' &amp;= \mu v - \eta \nabla C\\
 <h3>Rectified linear unit</h3>
 <p>Earlier in the book we met another type of neuron known as a rectified linear unit. Explain why such neurons don’t satisfy the conditions just given for universality. Find a proof of universality showing that rectified linear units are universal for computation.</p>
 <p>If we were to turn the rectified linear unit into a step function, the left side would be 0. The right side however would keep increasing towards infinity. For the step function, we need a concrete number on the as <span class="math inline">\(z \rightarrow \infty\)</span>.</p>
-<p>I found a study called , but I don’t understand it yet. The paper seems to talk a lot about Ridgelet transformations.</p>
+<p>I found a study called <a href="https://arxiv.org/abs/1505.03654">Neural Network with Unbounded Activation Functions is Universal Approximator</a>, but I don’t understand it yet. The paper seems to talk a lot about Ridgelet transformations.</p>
 </div>
 </div>
 <div id="chapter-5-exercises-and-problems" class="section level2">

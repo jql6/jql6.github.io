@@ -13,9 +13,9 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+[Return to homepage](http://neuralnetworksanddeeplearning.com/index.html)
 
-Exercises from this book by Michael Nielsen:
-http://neuralnetworksanddeeplearning.com/index.html
+Exercises from this [book by Michael Nielsen](http://neuralnetworksanddeeplearning.com/index.html).
 
 ## Chapter 1 exercises
 
@@ -422,7 +422,7 @@ $ln(\sum_i e^{z_k^L})$ is rewritten as $C$ because the value itself doesn't depe
 
 Note that the cost function is simplified to $C \equiv -\text{ln}(a_y^L)$, where $y$ is a vector of 0's with one 1 at the desired class. If we think back to classifying digits and our desired answer is 7, then the $y$ vector is a bunch of 0's with a 1 at the neuron for 7's output. If the neurons are ordered from 0-9, then the eight neuron would refer to the activation for detecting 7 from the image.
 
-The full cost function equation is actually $-\sum_j(y_j \text{ln}(a_j^L))$ from dontloo's post \href{https://stats.stackexchange.com/questions/223799/different-definitions-of-the-cross-entropy-loss-function/224491#224491}{here}. We know that all $y$'s are 0 unless it's our desired class, and so we get $0 + 0 + 0 + ... + \text{ln} a_y^L + 0 + ...$ where $a_y^L$ is the activation that is multiplied by 1 instead of 0. Therefore, we will derive $y_j \text{ln}(a_j^L)$ with respect to $b_j^L$.
+The full cost function equation is actually $-\sum_j(y_j \text{ln}(a_j^L))$ from [dontloo's post](https://stats.stackexchange.com/questions/223799/different-definitions-of-the-cross-entropy-loss-function/224491#224491). We know that all $y$'s are 0 unless it's our desired class, and so we get $0 + 0 + 0 + ... + \text{ln} a_y^L + 0 + ...$ where $a_y^L$ is the activation that is multiplied by 1 instead of 0. Therefore, we will derive $y_j \text{ln}(a_j^L)$ with respect to $b_j^L$.
 
 \begin{align*}
 C &= -\sum_j (y_j \text{ln}(a_j^L))\\
@@ -484,7 +484,7 @@ See file
 ### Gradient descent on hyper-parameters
 It's tempting to use gradient descent to try to learn good values for hyper-parameters such as $\lambda$ and $\eta$. Can you think of an obstacle to using gradient descent to determine $\lambda$? Can you think of an obstacle to using gradient descent to determine $\eta$?\\
 
-I'm not really clear on this one, I've managed to search up \href{https://cs.stackexchange.com/questions/74561/what-are-the-challenges-of-using-gradient-descent-on-hyper-parameters-\%CE\%BB-and-\%CE\%B7-to}{a few explanations} though.
+I'm not really clear on this one, I've managed to search up [a few explanations](https://cs.stackexchange.com/questions/74561/what-are-the-challenges-of-using-gradient-descent-on-hyper-parameters-\%CE\%BB-and-\%CE\%B7-to) though.
 
 If I wanted to continue, I would probably start by investigating the gradients of $\lambda$ and $\eta$ and see which comment holds more weight.
 
@@ -543,7 +543,7 @@ Earlier in the book we met another type of neuron known as a rectified linear un
 
 If we were to turn the rectified linear unit into a step function, the left side would be 0. The right side however would keep increasing towards infinity. For the step function, we need a concrete number on the as $z \rightarrow \infty$.
 
-I found a study called \href{https://arxiv.org/abs/1505.03654}{Neural Network with Unbounded Activation Functions is Universal Approximator}, but I don't understand it yet. The paper seems to talk a lot about Ridgelet transformations.
+I found a study called [Neural Network with Unbounded Activation Functions is Universal Approximator](https://arxiv.org/abs/1505.03654), but I don't understand it yet. The paper seems to talk a lot about Ridgelet transformations.
 
 ## Chapter 5 exercises and problems
 ### Large derivatives in unstable gradients
