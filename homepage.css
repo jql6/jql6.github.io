@@ -7,6 +7,8 @@
   text-align: center;
 }
 
+/* Credit to Fabrizio Calderan */
+/* https://stackoverflow.com/questions/54927180/css-grid-square-layout */
 /* This makes the grid's row height match the column width somehow. */
 .container div::before {
   content: "";
