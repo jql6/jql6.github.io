@@ -477,7 +477,7 @@ SD(w_j) &= \sqrt{\frac{3}{2}}
 \end{align*}
 
 ### Learning schedule
-Modify \texttt{network2.py} so that it implements a learning schedule that: halves the learning rate each time the validation accuracy satisfies the no-improvement-in-10 rule; and terminates when the learning rate has dropped to 1/128 of its original value.\\
+Modify $\texttt{network2.py}$ so that it implements a learning schedule that: halves the learning rate each time the validation accuracy satisfies the no-improvement-in-10 rule; and terminates when the learning rate has dropped to 1/128 of its original value.\\
 
 See file
 
@@ -559,7 +559,7 @@ where $w_2 \sigma'(z_2) < \frac{1}{4}$ and $w_3 \sigma'(z_3) < \frac{1}{4}$, we 
 ### Fully connected layer exclusion
 What classification accuracy do you get if you omit the fully-connected layer, and just use the convolutional-pooling layer and softmax layer? Does the inclusion of the fully-connected layer help?
 
-I used the same code above this exercise in the book but removed the \texttt{FullyConnectedLayer} and changed \texttt{n\_in=100} in the \texttt{SoftmaxLayer} to \texttt{n\_in=20*12*12} to match the input from the \texttt{ConvPoolLayer}. I also set the number of epochs to 20. For the network with the fully connected layer, my best validation accuracy was 98.63\%, with a corresponding test accuracy of 98.75\%. Without the fully connected number, my best validation accuracy was 98.59\% with a corresponding test accuracy of 98.55\%. 
+I used the same code above this exercise in the book but removed the $\texttt{FullyConnectedLayer}$ and changed $\texttt{n_in=100}$ in the $\texttt{SoftmaxLayer}$ to $\texttt{n_in=20*12*12}$ to match the input from the $\texttt{ConvPoolLayer}$. I also set the number of epochs to 20. For the network with the fully connected layer, my best validation accuracy was 98.63\%, with a corresponding test accuracy of 98.75\%. Without the fully connected number, my best validation accuracy was 98.59\% with a corresponding test accuracy of 98.55\%. 
 
 If we look at the error percentages of the test accuracies, $1 - 0.9875 = 0.0125$ and $1 - 0.09855 = 0.0145$. We can see that the error rate is reduced by over 10\% when we keep the fully connected layer as compared to removing the fully connected layer. It appears that keeping the fully connected layer is beneficial at 20 epochs.
 
