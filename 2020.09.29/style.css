@@ -1,0 +1,13 @@
+/*CSS Stylesheet*/
+
+.center{
+  margin: auto;
+  padding: 3px;
+  text-align: center;
+}
+.center_border{
+  margin: auto;
+  border: 6px solid #969696;
+  padding: 2px;
+  text-align: center;
+}
