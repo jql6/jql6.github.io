@@ -10,12 +10,12 @@
 /* Credit to Fabrizio Calderan */
 /* https://stackoverflow.com/questions/54927180/css-grid-square-layout */
 /* This makes the grid's row height match the column width somehow. */
-.container div::before {
+/*.container div::before {
   content: "";
   padding-bottom: 100%;
   display: inline-block;
   vertical-align: middle;
-}
+}*/
 
 .container {
   font-size: 40px;
@@ -31,6 +31,8 @@
 }
 
 .image-panel {
+  /* A larger font size introduces more space below the image panel */
+  font-size: 0px;
   margin: auto;
 }
 
