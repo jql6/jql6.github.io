@@ -28,12 +28,14 @@
   grid-gap: 5px;
   border: 5px solid #969696;
   margin: auto;
+  overflow: hidden;
 }
 
 .image-panel {
   /* A larger font size introduces more space below the image panel */
   font-size: 0px;
   margin: auto;
+  min-width: 0;
 }
 
 /* This is for testing the homepage layout */
