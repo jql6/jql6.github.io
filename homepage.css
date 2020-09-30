@@ -38,6 +38,12 @@
   min-width: 0px;
 }
 
+.image-panel > img{
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
 /* This is for testing the homepage layout */
 .d2{background: #1FF;}
 .d3{background: #F1F;}
