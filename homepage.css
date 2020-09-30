@@ -30,7 +30,11 @@
   margin: auto;
 }
 
-.d1{background: #FFF;}
+.image-button{
+  width: 100%;
+}
+
+/* This is for testing the homepage layout */
 .d2{background: #1FF;}
 .d3{background: #F1F;}
 .d4{background: #FF1;}
