@@ -35,7 +35,7 @@
   /* A larger font size introduces more space below the image panel */
   font-size: 0px;
   margin: auto;
-  min-width: 0;
+  min-width: 0px;
 }
 
 /* This is for testing the homepage layout */
