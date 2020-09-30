@@ -38,7 +38,7 @@
   min-width: 0px;
 }
 
-.image-panel > img{
+.image-panel > a > img{
   width: 100%;
   height: auto;
   margin: auto;
