@@ -28,7 +28,6 @@
   grid-gap: 5px;
   border: 5px solid #969696;
   margin: auto;
-  overflow: hidden;
 }
 
 @media screen and (min-width: 768px){
@@ -45,7 +44,6 @@
 }
 
 .image-panel > a > img{
-  width: 100%;
   height: auto;
   margin: auto;
 }

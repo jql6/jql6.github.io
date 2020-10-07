@@ -11,15 +11,17 @@
 
 <body>
 <section class="center_border">
-  <h3>Intro</h3>
+  <h2>Intro</h2>
   <p>
     LaTeX is great for writing math electronically. LaTeX is generally
     pronounced as "lay-teck" or "lah-teck"; I prefer "lay-teck". LaTeX is able
     to easily do lots of math things easily such as subscripts within
     subscripts, matrices, and switch between math notation and English text
-    fairly easily.
+    fairly easily. I will also write a [LaTeX file]() so that you can follow along
+    and edit the code to learn what the bits of code do.
   </p>
   <p>Brief note: I am on Mac, so this guide will be specific to Mac users.</p>
+
   <h3>Installation</h3>
   <p>
     <a href="https://pages.uoregon.edu/koch/texshop/obtaining.html">
@@ -28,6 +30,7 @@
     is likely where I downloaded my texshop. Texshop is what you'll use to
     write LaTeX in.
   </p>
+
   <h3>Stationery</h3>
   <p>
     Stationery are templates for LaTeX. As a beginner, it's best to start out
@@ -40,9 +43,140 @@
       light mode stationery.
     </a>
   </p>
+
+  <h3>
+    Commenting
+  </h3>
+  <p>
+    In LaTeX, comments are prefaced with '%', just like Python or R but with
+    different symbols.
+  </p>
+
+  <h3>
+    Macros
+  </h3>
+  <p>
+    Macros are editable parts of LaTeX where you can save code and have it
+    pasted into your document at a menu click. This is a really great way to
+    learn LaTeX as you can save bits of code you think you will reuse and
+    comment within it to help remind you of what the code is doing.
+  </p>
+
+  <h3>
+    Typesetting
+  </h3>
+  <p>
+    For Mac, you can use <code>command + T</code> to get LaTeX to output the
+    document that you've been writing and see the results. It is a good idea to
+    do this after writing for a bit to ensure that your code is working
+    properly. You can do <code>control + command + E</code> to get LaTeX to
+    highlight the line of code that is causing an error when it's trying to
+    output your document.
+  </p>
+
+  <h2>Environments and packages</h2>
+  <p>
+    Environments are like the modes that LaTeX has. Things that are written
+    between dollar signs ($) will be written in Math mode, where you can write
+    equations. The default environment in LaTeX is the text environment. To
+    write text within a math environment, you can use:
+  </p>
+    <pre>
+      <code>\text{}</code>
+    </pre>
+  <p>
+    and just write the text you want within the squiggly brackets.
+  </p>
+  <p>
+    Example of math environment:
+  </p>
+  <pre>
+    <code>$a = 0;\ \sum_{i = 0}^n n$</code>
+  </pre>  
+  <p>
+    There are more environments, but these are the basic ones that are almost
+    always present.
+  </p>
+
+  <h3>Tables</h3>
+  <p>
+    In the Text environment (Text mode), you can use:
+  </p>
+  <pre>
+    <code>\begin{tabular}{| c | c |}
+  \hline
+  5 & 8\\
+  \hline
+  6 & 3\\
+  \hline
+  8 & 9\\
+  \hline
+\end{tabular}</code>
+  </pre>
+  <p>
+    This will create a 3x2 table. The <code>\begin{tabular}</code> and
+    <code>\end{tabular}</code> code begins and ends the tabular environment,
+    which is used to create the table. The <code>{c | c}</code> portion tells
+    LaTeX how many columns you want, what their alignments should be, and if
+    there should be lines between the columns or not. Specifically, here the 'c'
+    tells LaTeX to align the elements to the center. The <code>\hline</code>
+    part of the code creates a horizontal line for the table. The
+    <code>\\</code> introduces a newline. The ampersand <code>&</code> is used
+    to align the elements between the rows so that they are in the same column.
+  </p>
+
+  <h3>Proofs</h3>
+  <p>
+    In the align environment, you can create proofs. The code within an align
+    environment occurs in the math environment. You can use <code>&</code> to
+    align parts of the equation similar to how it was used in tabular.
+  </p>
+
+  <h3>
+    Packages
+  </h3>
+  <p>
+    It's possible that you may not be able to do everything you want quickly
+    with base LaTeX. Packages will allow you to do various things such as
+    changing your LaTeX document colors, making elements stretch across multiple
+    rows or columns, and even include pictures within your document.
+  </p>
 </section>
+
+
+<h3>
+  Resources
+</h3>
+
 <section>
-  <a href = "https://jql6.github.io">
+  <a href="https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols">
+    List of LaTeX math symbols
+  </a>
+  <p>
+    This resource is great if you want to quickly find the code for a certain
+    symbol in LaTeX.
+  </p>
+
+  <a href="https://www.overleaf.com/learn">
+    Overleaf
+  </a>
+  <p>
+    Overleaf is great for learning about LaTeX basics such as figuring out what
+    the various environments are.
+  </p>
+
+  <a href="https://tex.stackexchange.com/">
+    Stack Exchange
+  </a>
+  <p>
+    Stack Exchange is great for finding answers to more niche questions that
+    you have, such as "how can I make elements span across multiple rows/
+    columns?". (You can use the package 'multirow' for that by the way.)
+  </p>
+</section>
+
+<section>
+  <a href = "https://jql6.github.io" class="end">
     Return to homepage
   </a>
 </section>

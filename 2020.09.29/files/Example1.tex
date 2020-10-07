@@ -1,0 +1,49 @@
+\documentclass[12pt]{amsart}
+% 80 Character width guide
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Packages %%%
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, geometry, graphicx}
+\usepackage{hyperref, latexsym, multirow, xcolor} \usepackage[T1]{fontenc}
+%\usepackage{pgfplots} \pgfplotsset{width = 8cm, compat = 1.9}
+%%% Document settings %%%
+\geometry{letterpaper, lmargin = 15mm, rmargin = 15mm}
+\definecolor{l_gray1}{RGB}{215, 215, 215} \color{l_gray1} % Text color
+\definecolor{d_gray1}{RGB}{45, 45, 45} \pagecolor{d_gray1} % Page color
+
+\begin{document}
+\title[Short Title]{Example1}
+\author{J} \maketitle
+
+Math environment:
+$a = 0;\ \sum_{i = 0}^n n$\\
+
+Similar to math environment, but it's centered and larger. If you want these
+equations to be numbered, you can use the equation environment.
+$$a_j^l = \sigma \left( \sum_k w_{j k}^l a_k^{l - 1} + b_j^l \right)$$
+
+Tabular environment:\\
+\begin{tabular}{| c | c |}
+\hline
+5 & 8\\
+\hline
+6 & 3\\
+\hline
+8 & 9\\
+\hline
+\end{tabular}
+
+Array environment:\\
+$$
+\begin{array}{c | c}
+\sum_{i = 1}^\infty a_i^n & \text{text}\\
+\end{array}
+$$
+
+\begin{align*}
+\delta_j^l &= \frac{\delta C}{\delta z_j^l}\\
+&= \sum_k \frac{\delta C}{\delta z_k^{l + 1}} \frac{\delta z_k^{l + 1}}{\delta z_j^L}\\
+&= \sum_k \frac{\delta z_k^{l + 1}}{\delta z_j^l} \delta_k^{l + 1}\\
+\end{align*}
+
+\end{document}

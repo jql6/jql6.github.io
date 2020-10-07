@@ -11,3 +11,33 @@
   padding: 2px;
   text-align: center;
 }
+
+.end{
+  background-color: #969696;
+  padding: 10px;
+}
+
+:is(h3, h4, h5, h6){
+  text-align: left;
+  padding: 0px 10px 0px 10px;
+}
+
+code{
+  background-color: #d9d9d9;
+}
+
+pre code{
+  display: block;
+  text-align: left;
+  padding: 0px 10px 0px 10px;
+  background-clip: content-box;
+}
+
+p{
+  padding: 0px 10px 0px 10px;
+  text-align: left;
+}
+
+section > a{
+  padding: 0px 10px 0px 10px;
+}
