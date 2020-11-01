@@ -1,0 +1,124 @@
+---
+title: "purrr_and_dataframes"
+author: "Jackie Lu"
+date: "10/31/2020"
+output:
+  html_document:
+    css: "dark_mode.css"
+---
+
+# Purrr and dataframes
+
+|     Applying functions to elements is a pretty common situation in programming. In R, the purrr library allows you to do iterations with consistent syntax plus <a href="https://stackoverflow.com/a/47123420">other benefits</a>.  
+
+<br>
+
+|     While using purrr though, I found it difficult to remember which function was used for columns of a data frame, and which was used for rows of a data frame. I decided to investigate.
+
+<br>
+
+
+```{r}
+# # Use code below if you haven't installed purrr yet
+# install.packages("purrr")
+
+library(purrr)
+
+# Create a data frame of values
+vals_1 <- data.frame(a_col = c(1, 2, 3),
+                     b_col = c(1, 2, 3))
+```
+
+You may have noticed at some point that you can access the elements of a dataframe by using double square brackets like so:
+```{r}
+# Access the first element in the vals_1 list
+vals_1[[1]]
+```
+
+Data frames are actually a type of list where the elements are vectors, and the lengths of these vectors are the same. The data type within a single vector is consistent as well. Using:
+
+```{r}
+as.list(vals_1)
+```
+
+We can see that a data frame is a list of its columns. In the purrr cheatsheet
+it mentions that $\texttt{map}$ "[applies] a function to each element of a list." Clearly, $\texttt{map}$ must be used for columns then, as the data frame is the list and the columns are its elements.
+
+```{r}
+# Go through each column in vals_1, and sum the column
+map(vals_1, sum)
+```
+
+The description for pmap says that it "[applies] functions to groups of elements from list of lists, vectors." If we look at the example below, we see that every element in a column corresponds to a row in that column.  
+
+```{r}
+# First element in the a column
+vals_1$a_col[1]
+# Second element in the a column
+vals_1$a_col[2]
+# Third element in the a column
+vals_1$a_col[3]
+```
+
+If we have the first element of every column, then we have the first row.
+
+```{r}
+# Vector of first elements
+c(vals_1$a_col[1], vals_1$b_col[1])
+
+# First row of the data frame of values
+vals_1[1, ]
+```
+
+We see that we get the same values. We can think of rows as groups of elements from a vector within a list. Therefore $\texttt{pmap}$ applies to rows of a dataframe.  
+
+```{r}
+pmap(vals_1, sum)
+```
+
+$\texttt{modify_if}$ is similar to $\texttt{map}$ in that it works on elements of a list, except it returns the same data type that was given to it, and only acts on the elements that fit the condition. In the code below, I show an example of using $\texttt{modify_if}$ for cleaning "?" into NA values.
+
+```{r}
+# Small example dataframe
+ex1 <- data.frame(id = c(1, 2, 3),
+                  value = c(NaN, 2, NA),
+                  name = c("a", "b", "?"),
+                  name_2 = c("?", "?", "c"))
+
+replace_q_mark <- function(fact_vect, target_char = "?"){
+  # Function that takes a factor vector and a character variable such as
+  # "not applicable" and changes the factor levels that correspond to the
+  # character variable so that it represents NA
+  
+  # Check if char_vect has a question mark
+  if (sum(levels(fact_vect) == target_char) >= 1){
+    # Replace it with NA
+    levels(fact_vect)[levels(fact_vect) == target_char] <- NA
+  }
+  return(fact_vect)
+}
+
+# This returns a dataframe where the question marks are replaced with NA's
+modify_if(ex1, is.factor, ~ replace_q_mark(.x, target_char = "?"))
+```
+
+
+
+## Resources
+
+<section>
+  <a href="https://rstudio.com/resources/cheatsheets/">
+    R cheatsheets
+  </a>
+  <p>
+    You can find the cheatsheet for purrr in here, among other R cheatsheets.
+  </p>
+</section>
+
+<section>
+  <a href = "https://jql6.github.io" class="end">
+    Return to homepage
+  </a>
+</section>
+
+<br>

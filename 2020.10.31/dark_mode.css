@@ -1,0 +1,47 @@
+/* Dark mode (Idle Fingers theme) for R html files */
+
+body{
+    color: rgb(255, 255, 255);
+    background-color: rgb(50, 50, 50);
+}
+
+/* Code blocks */
+pre{
+    color: rgb(255, 255, 255);
+    background-color: rgb(70, 70, 70);
+}
+
+/* Code block outputs */
+pre:not([class]){
+    background-color: rgb(70, 70, 70); 
+}
+
+/* Make the images darker */
+img{
+    filter: brightness(70%);
+}
+
+/* keywords in code blocks */
+.hljs-keyword{
+    color: rgb(184, 120, 64);
+}
+
+/* String in code blocks */
+.hljs-string{
+    color: rgb(167, 62, 46);
+}
+
+/* Boolean variables in code blocks */
+.hljs-literal
+    color: rgb(167, 62, 46);
+}
+
+/* Numbers in code blocks */
+.hljs-number{
+    color: rgb(116, 150, 181);
+}
+
+/* Comments in code blocks */
+.hljs-comment{
+    color: rgb(181, 149, 95);
+}
