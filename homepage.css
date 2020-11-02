@@ -2,7 +2,7 @@
 
 .center_border{
   margin: auto;
-  border: 6px solid #969696;
+  border: 3px solid #969696;
   padding: 2px;
   text-align: center;
 }
@@ -57,7 +57,7 @@
 
 .text-overlay {
   background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(20, 20, 20, 0.9);
   color: #FFF;
   transition: 0.3s ease-out;
   opacity: 0;
