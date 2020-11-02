@@ -1,5 +1,5 @@
 ---
-title: "purrr_and_dataframes"
+title: "Purrr and dataframes"
 author: "Jackie Lu"
 date: "10/31/2020"
 output:
@@ -7,7 +7,7 @@ output:
     css: "dark_mode.css"
 ---
 
-# Purrr and dataframes
+<br>
 
 |     Applying functions to elements is a pretty common situation in programming. In R, the purrr library allows you to do iterations with consistent syntax plus <a href="https://stackoverflow.com/a/47123420">other benefits</a>.  
 
