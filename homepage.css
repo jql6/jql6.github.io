@@ -17,35 +17,67 @@
   vertical-align: middle;
 }*/
 
-.container {
+.grid-container {
   font-size: 40px;
   text-align: center;
   width: 98%;
   background: #969696;
   display: grid;
   grid-auto-rows: 1fr;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
   border: 5px solid #969696;
   margin: auto;
 }
 
 @media screen and (min-width: 768px){
-  .container {
+  .grid-container {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
+
+
 .image-panel {
   /* A larger font size introduces more space below the image panel */
-  font-size: 0px;
-  margin: auto;
-  min-width: 0px;
+  display: flex;
+  background-color: #999;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.image-panel > a > img{
-  height: auto;
-  margin: auto;
+.image-panel::before {
+  display: block;
+  content: '';
+  padding-bottom: 100%;
+}
+
+.text-overlay {
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.9);
+  color: #FFF;
+  transition: 0.3s ease-out;
+  opacity: 0;
+  align-self: flex-end;
+  margin: 0px;
+  width: 100%;
+  font-size: 30px;
+}
+
+.image-panel:hover .text-overlay{
+  opacity: 1;
+}
+
+/* Background images */
+#pic-2020-09-29 {
+  background-image: url("images/2020.09.29.png");
+}
+
+#pic-2020-10-31 {
+  background-image: url("images/2020.10.31.png");
 }
 
 /* This is for testing the homepage layout */
