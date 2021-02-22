@@ -1,0 +1,82 @@
+/* Styles for the rock paper scissors project */
+
+button.player-selection{
+    font-size: 2rem;
+    height: 4rem;
+}
+
+section.game-window{
+    max-width: 600px;
+    margin: auto;
+}
+
+section.selections {
+    text-align: center;
+    padding: 10px;
+}
+
+section.output-box {
+    background-color: rgb(220, 220, 220);
+    height: 1.5rem;
+    margin: 10px 20px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+p.output-text {
+    padding: 0px;
+    margin: 0px;
+}
+
+section.scores-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 60%;
+    background-color:rgb(235, 235, 235);
+    height: 4rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+section.score-name-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20%;
+    background-color:rgb(235, 235, 235);
+    height: 4rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+p.scores {
+    /* The three styles below make the text vertically centered */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: rgb(168, 143, 15);
+    border-style: solid;
+    font-size: 2rem;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+p.score-name {
+    /* The three styles below make the text vertically centered */
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+p#left-score-name {
+    justify-content: left;
+}
+p#right-score-name {
+    justify-content: right;
+}

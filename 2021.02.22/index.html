@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="RPSstyle.css">
+</head>
+<body>
+  <section class="game-window">
+    <section class="score-name-grid">
+      <p class="score-name" id="left-score-name">Your score</p>
+      <p class="score-name" id="right-score-name">Computer's score</p>
+    </section>
+    <section class="scores-grid">
+      <p class="scores" id="player-score"></p>
+      <p class="scores" id="computer-score"></p>
+    </section>
+  
+    <section class="selections">
+      <button data-name="Rock" class="player-selection">Rock</button>
+      <button data-name="Paper" class="player-selection">Paper</button>
+      <button data-name="Scissors" class="player-selection">Scissors</button>
+    </section>
+  
+    <section class="output-box">
+      <p id="selection-output" class="output-text"></p>
+    </section>
+  
+    <section class="output-box">
+      <p id="game-output" class="output-text"></p>
+    </section>
+  </section>
+
+  <script>
+    /*
+    Make a function called computerPlay that will randomly return
+    Rock, Paper, or Scissors.
+    */
+    function computerPlay() {
+      // Make an array containing Rock, Paper, and Scissors
+      let RPS_choices = ["Rock", "Paper", "Scissors"];
+      // Randomly select one of the choices in RPS_choices
+      return RPS_choices[Math.floor(Math.random() * RPS_choices.length)];
+    }
+    /*
+    Write a function that plays a single round of Rock Paper Scissors.
+    The function should take two parameters - the playerSelection and
+    computerSelection - and then return a string that declares the winner
+    of the round like so: "You Lose! Paper beats Rock". Make the function
+    case insensitive. Examples include: rock, ROCK, RocK.
+    */
+
+    // Writing an extra function here to make everything lowercase then
+    // capitalizing the first letter
+    function capitalize_first_letter(string_1){
+      // Assume the input is a string
+      // Convert string_1 to lowercase
+      let string_2 = string_1.toLowerCase();
+      // Capitalize the first letter
+      return string_2.charAt(0).toUpperCase() + string_2.slice(1);
+    }
+
+    function RPS_round(playerSelection, computerSelection){
+      // Assume that playerSelection and computerSelection are strings
+      let RPS_choices = ["Rock", "Paper", "Scissors"];
+
+      // Make both selections all lowercase and capitalize the first letter
+      let playerSelection_2 = capitalize_first_letter(playerSelection);
+      let computerSelection_2 = capitalize_first_letter(computerSelection);
+
+      // Look at the spreadsheet for more details on the game logic
+      
+      // Create game results
+      let game_results = [`Tie! Try again!`,
+                          `You lose! ${computerSelection_2} beats ` +
+                          `${playerSelection_2}`,
+                          `You win! ${playerSelection_2} beats ` +
+                          `${computerSelection_2}`];
+      
+      // If playerSelection is not one of the choices
+      if (RPS_choices.includes(playerSelection_2 == false)) {
+        return `Error, you must choose "Rock", "Paper", or "Scissors"!`;
+      } // If computerSelection is not one of the choices
+      else if (RPS_choices.includes(computerSelection_2) == false) {
+        return `Error, computer must choose "Rock", "Paper", or "Scissors"!`;
+      } // Otherwise, play the game
+      else{
+        // We need all combinations to create differences; 0 won't work
+        let player_num = RPS_choices.indexOf(playerSelection_2) + 1;
+        let computer_num = RPS_choices.indexOf(computerSelection_2) + 1;
+        
+        // This calculation gets us a game result
+        let game_score = computer_num - player_num;
+        
+        // Choose game result based on the game score
+        return game_results.slice(game_score)[0];
+      }
+    }
+
+    /*
+    Write a new function called game(). Use the previous function inside the
+    game() function to play a 5 round game that keeps score and reports a
+    winner or loser at the end. Use console.log() to display the results
+    of each round and the winner at the end. Use prompt() to get input from
+    the user.
+    */
+
+    /*
+    function game() {
+      // Initialize two variables to keep track of the number of wins
+      // for both players
+      player_wins = 0;
+      computer_wins = 0;
+
+      // Do this loop until one of the win counters reaches 3
+      while (player_wins < 3 && computer_wins < 3){
+        // Play a round of rock paper scissors with the RPS_round function
+        let p1_choice = prompt("Make your choice: rock, paper, or scissors?");
+        let game_result = RPS_round(playerSelection = p1_choice,
+                                  computerSelection = computerPlay());
+        
+        // Print the game result
+        console.log(game_result);
+
+        // Check for tie
+        if (game_result.substr(0, 3) == "Tie") {
+          // If it's a tie, redo the round
+          continue;
+        } // Check if player 1 wins
+        else if (game_result.substr(4, 1) == "w") {
+          player_wins += 1;
+        } // Computer must have won if it's not a tie and player 1 didn't win
+        else {
+          console.assert( // Check that game result is loss for player 1
+            assertion = game_result.substr(4, 1 == "l"),
+            `Error, game result is not returning the right string!`
+            );
+          computer_wins += 1;
+        }
+        // Print the score
+        console.log(`Current score
+                       You: "${player_wins}" | Computer: "${computer_wins}"`);
+      }
+      // Print win message if player 1 wins
+      if (player_wins == 3){
+        console.log(`You beat the computer! Nice work.`);
+      } // Otherwise, print lose message because computer wins
+      else{
+        console.log(`You got wrecked; the computer won.`);
+      }
+    }
+    */
+
+    /* Code for adding event listeners for the buttons */
+
+    // Function for the selection button's event listener
+    function printMessage(e){
+      // Get the name of the clicked html element
+      playerChoice = e.target.getAttribute("data-name");
+      // Select the html element to add text to
+      const selectionOutput = document.querySelector("p#selection-output");
+      // Tell the player the choice they made
+      selectionOutput.textContent =
+          `You selected: "${e.target.getAttribute("data-name")}".`;
+      // Play out a round
+      let game_result = RPS_round(playerSelection = playerChoice,
+                                  computerSelection = computerPlay());
+      // Print the game result
+      const gameOutput = document.querySelector("p#game-output");
+      gameOutput.textContent = game_result;
+
+      // Add to the scores
+      // Check for tie
+      if (game_result.substr(0, 3) == "Tie") {
+        // If it's a tie, redo the round
+        ////continue;
+      } // Check if player 1 wins
+      else if (game_result.substr(4, 1) == "w") {
+        player_wins += 1;
+        document.querySelector("p#player-score").textContent = player_wins;
+      } // Computer must have won if it's not a tie and player 1 didn't win
+      else {
+        console.log(`assertion: "${game_result.substr(4, 1)}"`);
+        console.assert( // Check that game result is loss for player 1
+          assertion = game_result.substr(4, 1) == "l",
+          `Error, game result is not returning the right string!`
+          );
+        computer_wins += 1;
+        document.querySelector("p#computer-score").textContent = computer_wins;
+      }
+
+      // Print win message if player 1 wins the best of 5
+      if (player_wins == 3 || computer_wins == 3){
+        if (player_wins == 3) {
+          alert(`You beat the computer! Nice work.`);
+        } else { // Otherwise, print lose message because computer wins
+          alert(`You got wrecked; the computer won.`);
+        }
+        // reset the scores
+        alert(`Resetting the scores...`);
+        player_wins = 0;
+        document.querySelector("p#player-score").textContent = player_wins;
+        computer_wins = 0;
+        document.querySelector("p#computer-score").textContent = computer_wins;
+      }
+
+    }
+
+    // Select the buttons with the player-selection class
+    const selectionButtons =
+        document.querySelectorAll("button.player-selection");
+    // For every button, add an event listener that prints message when clicked
+    selectionButtons.forEach(button =>
+        button.addEventListener("click", printMessage));
+
+    
+    // Initialize two variables to keep track of the number of wins
+    // for both players
+    player_wins = 0;
+    computer_wins = 0;
+    document.querySelector("p#player-score").textContent = player_wins;
+    document.querySelector("p#computer-score").textContent = computer_wins;
+
+  </script>
+</body>
+</html>
