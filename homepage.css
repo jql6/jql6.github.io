@@ -71,6 +71,10 @@
   background-image: url("images/2020.10.31.png");
 }
 
+#pic-2021-02-22 {
+  background-image: url("images/2021.02.22.png");
+}
+
 /* This is for testing the homepage layout */
 .d2{background: #1FF;}
 .d3{background: #F1F;}
