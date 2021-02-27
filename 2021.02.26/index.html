@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Etch-a-Sketch</title>
+  <meta charset="UTF-8"/>
+  <link href="etch.css" rel="stylesheet">
+</head>
+<body>
+  <div id="title-box">
+    <h1>Etch a Sketch</h1>
+    <p>
+      <a href="https://github.com/jql6/etch_a_sketch">
+        Link to the repository
+      </a> | 
+      <a href="https://jql6.github.io/">
+        Return to homepage
+      </a>
+    </p>
+  </div>
+  <div id="reset-container">
+    <button id="reset">Reset</button>
+  </div>
+
+  <div class="grid-container" id="canvas"></div>
+
+  <script>
+    // Function that converts string rgb to rgb array
+    function convertStringRGBToArray(colorString) {
+      // Check that the input is an rgb string
+      if(colorString.slice(0, 3) !== "rgb"){
+        alert(`Error, please input a string rgb!`);
+        return;
+      }
+      else{
+        // Remove the 'rgb(' and ')' portions of the string
+        let colorNumbers = colorString.slice(colorString.indexOf('(') + 1,
+            colorString.indexOf(')'));
+        // Put the numbers into an array
+        let colorNumbers2 = colorNumbers.split(`,`);
+        // Convert the array elements from string to numbers
+        for (i = 0; i < colorNumbers2.length; i++){
+          colorNumbers2[i] = parseInt(colorNumbers2[i]);
+        }
+        return colorNumbers2;
+      }
+    }
+
+
+    // Function that converts a color array back into an RGB string
+    function convertArrayRGBToString(colorArray) {
+      if(colorArray.length !== 3){
+        alert(`Error, input must be an RGB string!`);
+      }
+      colorString =
+          `rgb(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]})`;
+      
+      return colorString;
+    }
+
+
+    // Function that subtracts 26 to an rgb value if valid
+    function rgbMinus26(rgbValue){
+      let rgbValue2 = rgbValue;
+      // Subtract to 0 if subtracting 26 would make it negative
+      if (rgbValue < 26){
+        rgbValue2 -= rgbValue;
+      } else {
+        rgbValue2 -= 26;
+      }
+
+      return rgbValue2;
+    }
+
+
+    // Function for darkening an element
+    function addPercentageBlack(event) {
+      // Extract the target element's rgb string
+      let rgbString = getComputedStyle(this).backgroundColor;
+      // Convert the rgb string into an array
+      let rgbArray = convertStringRGBToArray(this.style.backgroundColor);
+      // Subtract 26 from all color values
+      let rgbArray2 = rgbArray.map(rgbValue => rgbMinus26(rgbValue));
+      // Apply the new rgb values to the background color
+      this.style.backgroundColor = convertArrayRGBToString(rgbArray2);
+    }
+
+
+    // Function for changing background color of element to black
+    // This was used before the addPercentageBlack function
+    function changeToBlack(event) {
+      this.style.backgroundColor = `rgb(0, 0, 0)`;
+      console.log(this.style.backgroundColor);
+    }
+
+
+    // Function that clears all child elements from a parent element
+    function clearElements(parentElement){
+      // If the parent element has children nodes
+      while (parentElement.firstChild) {
+        // Remove a child node
+        parentElement.removeChild(parentElement.lastChild);
+      }
+    }
+
+    // Make a function that initializes the canvas
+    function initializeCanvas(sideNumber){
+      // Set up the grid template for the canvas based on input number
+      const canvas1 = document.querySelector("div#canvas");
+      canvas1.style.setProperty('--grid-rows', sideNumber);
+      canvas1.style.setProperty('--grid-columns', sideNumber);
+      // Clear the canvas of divs
+      clearElements(canvas1);
+      // Create an element that we will duplicate inside the canvas
+      const pixel1 = document.createElement('div');
+      pixel1.classList.add('square-div');
+      // Fill up the canvas with the square element we made
+      for (let i = 0; i < sideNumber * sideNumber; i++) {
+        canvas1.appendChild(pixel1.cloneNode(true));
+      }
+
+      // Add event listeners for the square divs
+      const squareDivs = document.querySelectorAll("div.square-div");
+      // Make the squares grey in javascript so that the listener will work
+      // https://stackoverflow.com/a/16893199
+      squareDivs.forEach(square =>
+          square.style.backgroundColor = `rgb(221, 221, 221)`
+      );
+      // Add about 10% black to every square div that is moused over
+      squareDivs.forEach(square =>
+          square.addEventListener("mouseover", addPercentageBlack)
+      );
+    }
+
+    // Actions to do when user presses the reset button
+    function resetCanvas() {
+      let sideNumber = prompt(`How many squares would you like per side?`);
+      // Restricting the sideNumber to a max of 100 to reduce computer stress
+      if (sideNumber > 100){
+        alert(`Error! The number of squares chosen must be 100 or smaller.`);
+        return;
+      } else if (sideNumber <= 0) { // Make sure input number is positive
+        alert(`Error, the number of squares chosen must be positive!`);
+        return;
+      }
+
+      initializeCanvas(sideNumber);
+    }
+
+    /**
+     * Adding event listeners
+     */
+
+    // Prompt user for side number
+    // Add event listener for the reset button
+    let resetButton = document.querySelector("button#reset");
+    resetButton.addEventListener("click", resetCanvas);
+
+    /**
+     * Initial canvas code
+     */
+    initializeCanvas(16);
+  </script>
+</body>
+</html>
