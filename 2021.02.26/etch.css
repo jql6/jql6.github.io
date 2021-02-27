@@ -15,10 +15,15 @@ body > * {
     margin: auto;
 }
 
+.center{
+    margin: auto;
+}
+
 .grid-container{
     display: grid;
     grid-gap: 3px;
     grid-template-columns: repeat(var(--grid-rows), 1fr);
+    margin: auto;
     max-width: 650px;
     padding: 10px;
 }
