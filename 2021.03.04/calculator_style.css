@@ -1,0 +1,81 @@
+/* Styles for the calculator project */
+
+body{
+    align-items: center;
+    margin: auto;
+    max-width: 500px;
+}
+
+section.calculator{
+    display: grid;
+    grid-template-rows: 100px 500px;
+    max-height: 800px;
+}
+
+section.display{
+    align-items: center;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+section.footer{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.display p{
+    color: #FFFFFF;
+    font-size: 50px;
+    margin: 0px;
+    text-align: center;
+}
+
+section.controls{
+    align-items: center;
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 500px;
+    justify-items: center;
+    padding: 20px 50px 0px 50px;
+    text-align: center;
+}
+
+section.button{
+    background-color: #ddd;
+    border: 2px solid black;
+    display: flex;
+    justify-items: center;
+    padding-top: 35%;
+    padding-bottom: 35%;
+    text-align: center;
+    width: 100%;
+}
+
+.button p{
+    font-size: 30px;
+    margin: auto;
+    user-select: none;
+}
+
+section.operator{
+    background-color: orange;
+}
+
+.playing {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 1rem #ffc600;
+}
+
+.button:active {
+    box-shadow: 4px 4px #666;
+    transform: scale(1.1);
+}
+
+section.equals{
+    background-color: lightsalmon;
+}

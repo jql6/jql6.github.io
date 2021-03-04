@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="calculator_style.css">
+</head>
+<body>
+  <!-- The visual portion of the calculator -->
+  <section class="calculator">
+    <section class="display" data-number="" data-operator="" data-operator-flag="false">
+      <p></p>
+    </section>
+
+    <section class="controls">
+      <section class="button clearAll">
+        <p>AC</p>
+      </section>
+      <section class="button delete">
+        <p>Del</p>
+      </section>
+      <section class="button">
+        <p>NA</p>
+      </section>
+      <section class="button operator">
+        <p>/</p>
+      </section>
+
+      <section class="button numeric">
+        <p>7</p>
+      </section>
+      <section class="button numeric">
+        <p>8</p>
+      </section>
+      <section class="button numeric">
+        <p>9</p>
+      </section>
+      <section class="button operator">
+        <p>x</p>
+      </section>
+
+      <section class="button numeric">
+        <p>4</p>
+      </section>
+      <section class="button numeric">
+        <p>5</p>
+      </section>
+      <section class="button numeric">
+        <p>6</p>
+      </section>
+      <section class="button operator">
+        <p>-</p>
+      </section>
+
+      <section class="button numeric">
+        <p>1</p>
+      </section>
+      <section class="button numeric">
+        <p>2</p>
+      </section>
+      <section class="button numeric">
+        <p>3</p>
+      </section>
+      <section class="button operator">
+        <p>+</p>
+      </section>
+
+      <section class="button decimal">
+        <p>.</p>
+      </section>
+      <section class="button numeric">
+        <p>0</p>
+      </section>
+      <section class="button">
+        <p>NA</p>
+      </section>
+      <section class="button equals">
+        <p>=</p>
+      </section>
+    </section>
+  </section>
+
+  <section class="footer">
+    <p>
+      <a href="https://github.com/jql6/calculator">
+        Link to the repository
+      </a> | 
+      <a href="https://jql6.github.io/">
+        Return to homepage
+      </a>
+    </p>
+  </section>
+
+  <script>
+    /**
+     * Functions
+     */
+    function add(number1, number2) {
+      return parseFloat(number1) + parseFloat(number2);
+    }
+
+    function subtract(number1, number2) {
+      return number1 - number2;
+    }
+
+    function multiply(number1, number2) {
+      return number1 * number2;
+    }
+
+    function divide(number1, number2) {
+      // Check for division by 0
+      if (number2 === 0) {
+        return `Div by 0 error`;
+      }
+      return number1 / number2;
+    }
+
+    function operate(operator, number1, number2){
+      // Initialize variable
+      let result = 0;
+
+      // Check the operator
+      switch (operator.charCodeAt(0)){
+        // If it's a '+' sign
+        case 43:
+          result = add(number1, number2);
+          break;
+        // If it's a '-'' sign
+        case 45:
+          result = subtract(number1, number2);
+          break;
+        // If it's a 'x' sign
+        case 120:
+          result = multiply(number1, number2);
+          break;
+        // If it's a '/' sign
+        case 47:
+          result = divide(number1, number2);
+          break;
+
+        default:
+          console.log(`Error, operator not recognized!`);
+      }
+
+      return result;
+    }
+
+    function showInput(e) {
+      let input1 = e.target.textContent;
+      let display1 = document.querySelector(".display > p");
+      if (display1.parentElement.getAttribute("data-operator").length !== 0 &&
+          display1.parentElement.getAttribute("data-operator-flag") == "true") {
+        display1.textContent = "";
+      }
+      display1.parentElement.setAttribute("data-operator-flag", "false");
+      display1.textContent += input1.trim();
+    }
+
+    function addDecimal(e) {
+      let input1 = e.target.textContent;
+      let display1 = document.querySelector(".display > p");
+      display1.parentElement.setAttribute("data-operator-flag", "false");
+      if (display1.textContent.indexOf('.') === -1) {
+        display1.textContent += input1.trim();
+      }
+    }
+
+    function deleteCharacter(e){
+      let display1 = document.querySelector(".display > p");
+      display1.textContent = display1.textContent.slice(0, -1);
+    }
+
+    function clearDisplay(e){
+      let display1 = document.querySelector(".display > p");
+      display1.textContent = "";
+      display1.parentElement.setAttribute("data-number", "");
+      display1.parentElement.setAttribute("data-operator", "");
+    }
+
+    function operatorClick(e){
+      let display1 = document.querySelector(".display > p");
+      // Operator if there's already a stored number and a display number
+      if (display1.textContent.length !== 0 &&
+          display1.parentElement.getAttribute("data-number").length !== 0) {
+        display1.parentElement.setAttribute("data-operator-flag", "true");
+
+        let storedNumber =
+            display1.parentElement.getAttribute("data-number");
+        let displayNumber = display1.textContent;
+        let storedOperator =
+            display1.parentElement.getAttribute("data-operator");
+        let result = operate(storedOperator, storedNumber, displayNumber);
+        display1.parentElement.getAttribute("data-number", result);
+        display1.textContent = `${result}`;
+      }
+      // Only store stuff if there are numbers inputted
+      if (display1.textContent.length !== 0) {
+        display1.parentElement.setAttribute("data-operator-flag", "true");
+        display1.parentElement.setAttribute("data-number",
+            display1.textContent);
+        display1.parentElement.setAttribute("data-operator",
+            e.target.textContent.trim());
+      }
+    }
+
+    function evaluate(e){
+      let display1 = document.querySelector(".display > p");
+      let storedNumber =
+          display1.parentElement.getAttribute("data-number");
+      let displayNumber = display1.textContent;
+      let storedOperator = display1.parentElement.getAttribute("data-operator");
+      // Make sure there's a number stored
+      if (storedNumber.length !== 0 && displayNumber.length !== 0) {
+        let result = operate(storedOperator, storedNumber, displayNumber);
+        display1.textContent = result;
+        display1.parentElement.setAttribute("data-number", "");
+      }
+      console.log(display1.textContent.length);
+    }
+
+    /**
+     * Adding event listeners
+     */
+    const buttons = Array.from(document.querySelectorAll('.button.numeric'));
+    buttons.forEach(button => button.addEventListener('click', showInput));
+    
+    const deleteButton = document.querySelector('.button.delete');
+    deleteButton.addEventListener('click', deleteCharacter);
+
+    const clearButton = document.querySelector('.button.clearAll');
+    clearButton.addEventListener('click', clearDisplay);
+
+    const operators = Array.from(document.querySelectorAll('.button.operator'));
+    operators.forEach(operator =>
+        operator.addEventListener('click', operatorClick));
+
+    const equalsButton = document.querySelector('.equals');
+    equalsButton.addEventListener('click', evaluate);
+
+    const decimalButton = document.querySelector('.button.decimal');
+    decimalButton.addEventListener('click', addDecimal);
+  </script>
+</body>
+</html>
