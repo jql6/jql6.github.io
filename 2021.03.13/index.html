@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Conda environments&comma; PyPI packages&comma; and Jupyter Notebooks</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body">
+        <head>
+  <!-- style sheet -->
+  <style type = text/css>
+    body{
+        color: white;
+        background-color: rgb(60, 60, 60);
+    }
+<!-- I don't know why, but both `a` and `a:link` must be changed -->
+<!-- to change link colors-->
+<pre><code>a{
+    color: rgb(97, 175, 239) !important;
+}
+
+a:link{
+    color: rgb(97, 175, 239) !important;
+}
+
+a:visited{
+    color: rgb(230, 180, 180) !important;
+}
+
+:is(h1, h2, h3, h4, h5, h6, p) {
+    color: white;
+}
+
+code{
+    outline-style: solid;
+    outline-color: rgb(160, 160, 160);
+    outline-width: 1px;
+    outline-offset: 1px;
+    background-color: rgb(50, 50, 50);
+}
+</code></pre>
+  </style>
+</head>
+<!-- omit in toc -->
+<h1 id="conda-environments-pypi-packages-and-jupyter-notebooks">Conda environments, PyPI packages, and Jupyter Notebooks</h1>
+<!-- omit in toc -->
+<h2 id="author-jackie-lu">Author: Jackie Lu</h2>
+<!-- omit in toc -->
+<h2 id="date-2020-jan-28">Date: 2020, Jan. 28</h2>
+<br>
+<!-- omit in toc -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#creating-the-conda-environment-and-installing-the-pypi-package">Creating the Conda environment and installing the PyPI package</a></li>
+<li><a href="#importing-the-environment-into-a-jupyter-notebook-kernel">Importing the environment into a Jupyter Notebook kernel</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+<br>
+<h1 id="intro">Intro</h1>
+<p>I'll be dicussing how to create a new Conda environment, install a package from PyPI into here, and use the new Conda environment in Jupyter Notebook. We will do this with an environment containing the <a href="https://github.com/swar/nba_api"><code>nba_api</code> Python package written by Swar</a>.</p>
+<p><a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" title="Conda environments">&quot;A conda environment is a directory that contains a specific collection of conda packages that you have installed.&quot;</a> It will contain the packages that you have chosen to install for the environment; this way if you want to work on different projects that require two different versions of the same package, you can swap environments instead of changing all of the packages to make it work.</p>
+<p>I'm covering how to install packages from PyPI because there may be packages on here that you want to use that aren't installed as easily as packages from a standard Conda site such as Conda-Forge.</p>
+<p><a href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html#kernel" title="Jupyter Notebook kernels">&quot;A notebook kernel is a “computational engine” that executes the code contained in a Notebook document.&quot;</a> We have to manually import the Conda environment into the kernel to be able to use the Conda environment in Jupyter Notebook.</p>
+<h1 id="creating-the-conda-environment-and-installing-the-pypi-package">Creating the Conda environment and installing the PyPI package</h1>
+<p>We can create a Conda environment with the name &quot;nba_api_env&quot; like so:</p>
+<blockquote>
+<p><code>conda create --name nba_api_env</code></p>
+</blockquote>
+<br>
+<hr>
+Here are some other Conda commands that you may find helpful:
+looking at the list of Conda environments you have and which environment you're currently in:
+> `conda env list`
+<p>switching into a Conda environment you already have:</p>
+<blockquote>
+<p><code>conda activate nba_api_env</code></p>
+</blockquote>
+<p>switching into base Conda:</p>
+<blockquote>
+<p><code>conda activate</code></p>
+</blockquote>
+<p>deleting a Conda environment:</p>
+<blockquote>
+<p><code>conda remove --name nba_api_env --all</code></p>
+</blockquote>
+<hr>
+<br>
+<p>We will have to install the <code>nba_api</code> Python package from PyPI, the Python Package Index. We can use <a href="https://stackoverflow.com/a/29304731" title="asmeurer's guide on installing PyPi packages into Conda">asmeurer's guide</a> to do this.</p>
+<p>These are the commands from asmeurer's answer:</p>
+<blockquote>
+<p><code>conda skeleton pypi package</code></p>
+</blockquote>
+<blockquote>
+<p><code>conda build package</code></p>
+</blockquote>
+<blockquote>
+<p><code>conda activate nba_api_env</code></p>
+</blockquote>
+<blockquote>
+<p><code>conda install --use-local package</code></p>
+</blockquote>
+<p>Where <code>package</code> is the name of the package that you want to install from PyPi.</p>
+<p>I tried using the skeleton command but it didn't work. I got this error:</p>
+<section>
+    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug1.png"
+         alt="Terminal showing conda skeleton"
+         width="600">
+</section>
+<br>
+<p>I then found this answer about this error from <a href="https://stackoverflow.com/a/49736986" title="Rutger Hofste's reply on source code error message from conda skeleton">Rutger Hofste</a>:</p>
+<section>
+    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug2.png"
+         alt="Rutger's reply to 'Conda Skeleton Fails'"
+         width="600">
+</section>
+<br>
+<p>This led me to check <a href="https://pypi.org/project/nba-api/1.1.9/#files">nba-api's package on the PyPI website</a> which shows that there is no row with the file type 'Source':</p>
+<section>
+    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug3.png"
+         alt="NBA API 1.1.9"
+         width="600">
+</section>
+<br>
+<p>compared to the <a href="https://pypi.org/project/nba-api/1.1.8/#files">previous version of nba-api</a> that has this.</p>
+<section>
+    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug4.png"
+         alt="NBA API 1.1.8"
+         width="600">
+</section>
+<br>
+<p>Therefore I went to the <a href="https://github.com/swar/nba_api/releases/tag/v1.1.9">github repo release for the nba-api package</a> and located the source file.</p>
+<section>
+    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug5.png"
+         alt="NBA API git release"
+         width="600">
+</section>
+<br>
+<p>I will now attempt to use the <code>--manual-url</code> parameter shown on <a href="https://docs.conda.io/projects/conda-build/en/latest/resources/commands/conda-skeleton-pypi.html">Conda's skeleton function documentation page</a> and supply it with the link to the source file.</p>
+<section>
+    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug6.png"
+         alt="Conda skeleton documentation"
+         width="600">
+</section>
+<br>
+<p>It looks like <code>--manual-url</code> is just used to manually select a url after the command has finished; you can supply a source url for it. I've submitted a question in the NBA API slack's help channel to see if I would be able to get an answer.</p>
+<br>
+<p>UPDATE: I ended up using the older version 1.1.8 that had the source code.</p>
+<p>This means instead of using the standard PyPI skeleton line:</p>
+<blockquote>
+<p><code>conda skeleton pypi package</code></p>
+</blockquote>
+<p>I used this instead:</p>
+<blockquote>
+<p><code>conda skeleton pypi package --version 1.1.8</code></p>
+</blockquote>
+<h1 id="importing-the-environment-into-a-jupyter-notebook-kernel">Importing the environment into a Jupyter Notebook kernel</h1>
+<p>Now that you have the NBA python package installed in your new Conda environment, you may run into a new issue when using Jupyter Notebook. If you try to open a new file in Jupyter Notebook and select <code>Kernel &gt; Change kernel</code>, you'll see that you can't the new environment. This is because Jupyter Notebook doesn't use your normal Conda and instead uses kernels, which are like their own instance of Python.</p>
+<p>To fix this, you'll need to make a kernel for your new Conda environment.</p>
+<blockquote>
+<p><code>conda create activate nba_api_env</code></p>
+</blockquote>
+<blockquote>
+<p><code>conda install nb_conda_kernels</code></p>
+</blockquote>
+<blockquote>
+<p><code>python -m ipykernel install --user --name nba_api_env --display-name &quot;Python (nba_api_env)&quot;</code></p>
+</blockquote>
+<p>As a side note, you can use this to remove a kernel:</p>
+<blockquote>
+<p><code>jupyter kernelspec uninstall unwanted-kernel</code></p>
+</blockquote>
+<p>Once you're done adding this kernel, you'll finally be able to use your new environment in Jupyter Notebook with packages from PyPI!</p>
+<h1 id="summary">Summary</h1>
+<blockquote>
+<p><code>conda create --name nba_api_env</code></p>
+</blockquote>
+<h1 id="resources">Resources</h1>
+<ol>
+<li><strong>Conda environments</strong>
+<br>
+<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html">https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html</a>
+<br></li>
+</ol>
+<ol start="2">
+<li><strong>What is the Jupyter Notebook?</strong>
+<br>
+<a href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html#kernel">https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html#kernel</a></li>
+</ol>
+<ol start="3">
+<li><strong>asmeurer on 'How to install PyPi packages using anaconda conda command'</strong>
+<br>
+<a href="https://stackoverflow.com/a/29304731">https://stackoverflow.com/a/29304731</a>
+<br>
+I used this answer to help us install packages to Conda environments from PyPi.</li>
+</ol>
+<ol start="4">
+<li><strong>Rutger Hofste on 'Conda Skeleton Fails'</strong>
+<br>
+<a href="https://stackoverflow.com/a/49736986">https://stackoverflow.com/a/49736986</a>
+<br></li>
+</ol>
+<ol start="5">
+<li><strong>Installing kernels for Conda environments</strong>
+<br>
+<a href="https://stackoverflow.com/questions/39604271/conda-environments-not-showing-up-in-jupyter-notebook">https://stackoverflow.com/questions/39604271/conda-environments-not-showing-up-in-jupyter-notebook</a>
+<br>
+I used this answer to handle the error I got from running the <code>conda skeleton</code> command.</li>
+</ol>
+
+    </body>
+    </html>
