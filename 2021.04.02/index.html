@@ -85,7 +85,7 @@ code{
 </ul>
 <br>
 <h1 id="intro">Intro</h1>
-<p>I'll be discussing how to create variables with PostgreSQL, how to convert data frames in Python to SQL tables, and how to set up a connection between Tableau and a local PostgreSQL server.</p>
+<p>I'll be discussing how to create variables with PostgreSQL, how to convert data frames in Python to SQL tables, and how to set up a connection between Tableau and a local PostgreSQL server. Here's <a href="https://github.com/jql6/Fantasy_NBA">a related project</a> where I used this information.</p>
 <h1 id="variables-in-postgresql">Variables in PostgreSQL</h1>
 <p>I had difficulty getting variables to work in PostgreSQL queries. What I ended up doing was creating functions that return the value that I'm looking for, and then just used the functions in place of variables. Here's an example:</p>
 <pre><code class="language-{postgresql}"><code><div>/* Function that gets the start date of the fantasy matchup week */

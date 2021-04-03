@@ -63,7 +63,7 @@
 <br>
 
 # Intro
-I'll be discussing how to create variables with PostgreSQL, how to convert data frames in Python to SQL tables, and how to set up a connection between Tableau and a local PostgreSQL server.
+I'll be discussing how to create variables with PostgreSQL, how to convert data frames in Python to SQL tables, and how to set up a connection between Tableau and a local PostgreSQL server. Here's [a related project](https://github.com/jql6/Fantasy_NBA) where I used this information.
 
 
 # Variables in PostgreSQL
