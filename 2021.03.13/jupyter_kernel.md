@@ -43,6 +43,14 @@
 ## Date: 2020, Jan. 28
 <br>
 
+<section class="footer">
+  <p>
+    <a href="https://jql6.github.io/">
+      Return to homepage
+    </a>
+  </p>
+</section>
+
 <!-- omit in toc -->
 ## Table of Contents
 - [Intro](#intro)

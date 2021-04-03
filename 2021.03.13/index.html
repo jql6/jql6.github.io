@@ -65,6 +65,13 @@ code{
 <!-- omit in toc -->
 <h2 id="date-2020-jan-28">Date: 2020, Jan. 28</h2>
 <br>
+<section class="footer">
+  <p>
+    <a href="https://jql6.github.io/">
+      Return to homepage
+    </a>
+  </p>
+</section>
 <!-- omit in toc -->
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
@@ -121,42 +128,42 @@ looking at the list of Conda environments you have and which environment you're 
 <p>Where <code>package</code> is the name of the package that you want to install from PyPi.</p>
 <p>I tried using the skeleton command but it didn't work. I got this error:</p>
 <section>
-    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug1.png"
+    <img src="file:////Users/Jackie/Documents/Coding/GitHub/jql6.github.io/2021.03.13/images/debug1.png"
          alt="Terminal showing conda skeleton"
          width="600">
 </section>
 <br>
 <p>I then found this answer about this error from <a href="https://stackoverflow.com/a/49736986" title="Rutger Hofste's reply on source code error message from conda skeleton">Rutger Hofste</a>:</p>
 <section>
-    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug2.png"
+    <img src="file:////Users/Jackie/Documents/Coding/GitHub/jql6.github.io/2021.03.13/images/debug2.png"
          alt="Rutger's reply to 'Conda Skeleton Fails'"
          width="600">
 </section>
 <br>
 <p>This led me to check <a href="https://pypi.org/project/nba-api/1.1.9/#files">nba-api's package on the PyPI website</a> which shows that there is no row with the file type 'Source':</p>
 <section>
-    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug3.png"
+    <img src="file:////Users/Jackie/Documents/Coding/GitHub/jql6.github.io/2021.03.13/images/debug3.png"
          alt="NBA API 1.1.9"
          width="600">
 </section>
 <br>
 <p>compared to the <a href="https://pypi.org/project/nba-api/1.1.8/#files">previous version of nba-api</a> that has this.</p>
 <section>
-    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug4.png"
+    <img src="file:////Users/Jackie/Documents/Coding/GitHub/jql6.github.io/2021.03.13/images/debug4.png"
          alt="NBA API 1.1.8"
          width="600">
 </section>
 <br>
 <p>Therefore I went to the <a href="https://github.com/swar/nba_api/releases/tag/v1.1.9">github repo release for the nba-api package</a> and located the source file.</p>
 <section>
-    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug5.png"
+    <img src="file:////Users/Jackie/Documents/Coding/GitHub/jql6.github.io/2021.03.13/images/debug5.png"
          alt="NBA API git release"
          width="600">
 </section>
 <br>
 <p>I will now attempt to use the <code>--manual-url</code> parameter shown on <a href="https://docs.conda.io/projects/conda-build/en/latest/resources/commands/conda-skeleton-pypi.html">Conda's skeleton function documentation page</a> and supply it with the link to the source file.</p>
 <section>
-    <img src="file:////Users/Jackie/Documents/Notes/my guides/jupyter kernel environment guide/images/debug6.png"
+    <img src="file:////Users/Jackie/Documents/Coding/GitHub/jql6.github.io/2021.03.13/images/debug6.png"
          alt="Conda skeleton documentation"
          width="600">
 </section>

@@ -66,6 +66,13 @@ code{
 <!-- omit in toc -->
 <h2 id="date-2021-apr-2">Date: 2021, Apr. 2</h2>
 <br>
+<section class="footer">
+  <p>
+    <a href="https://jql6.github.io/">
+      Return to homepage
+    </a>
+  </p>
+</section>
 <!-- omit in toc -->
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
@@ -73,6 +80,7 @@ code{
 <li><a href="#variables-in-postgresql">Variables in PostgreSQL</a></li>
 <li><a href="#writing-sql-queries-in-python">Writing SQL queries in Python</a></li>
 <li><a href="#setting-up-a-connection-between-postgresql-and-tableau">Setting up a connection between PostgreSQL and Tableau</a></li>
+<li><a href="#summary">Summary</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
 <br>
@@ -144,6 +152,8 @@ except (Exception, psycopg2.DatabaseError) as error:
 <p>You'll need to change the <code>postgresql.conf</code> file. For me on MacOS, this is found through <code>~/Library/Application\ Support/Postgres/var-13/postgresql.conf</code>. Go to connection settings and uncomment the <code>listen_addresses</code> line. Replace the <code>listen_addresses</code> line with <code>listen_addresses = '*'</code>. Here's <a href="https://stackoverflow.com/a/9765021" title="An explanation of what setting listen_addresses to * does">an explanation of what setting <code>listen_addresses</code> to <code>*</code> does.</a></p>
 <p>Next, in the same folder that contained <code>postgresql.conf</code>, search for the <code>pg_hba.conf</code> file. Search for &quot;Put your actual configuration here&quot; and look at the non-commented code. You can create a new line and place <code>host   all              all             all                     md5</code> underneath the existing rows. This code comes from an answer about <a href="https://stackoverflow.com/a/11754169" title="Setting up the pg_hba.conf file">the code for the <code>pg_hba.conf</code> file</a>.</p>
 <p>After doing these steps, you should be able to connect to your local PostgreSQL server with Tableau and start plotting from the database's data.</p>
+<h1 id="summary">Summary</h1>
+<p>Hopefully this gives some insight into some of the issues I had with PostgreSQL, Python, and Tableau and what solutions I used to solve these issues.</p>
 <h1 id="resources">Resources</h1>
 <ol>
 <li><strong>Try and except blocks for psycopg2</strong>
