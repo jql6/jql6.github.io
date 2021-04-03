@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PostgreSQL variables&comma; Psycopg2&comma; and using PostgreSQL with Tableau</title>
+        <style>
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </head>
+    <body class="vscode-body">
+        <head>
+  <!-- style sheet -->
+  <style type = text/css>
+    body{
+        color: white;
+        background-color: rgb(60, 60, 60);
+    }
+<!-- I don't know why, but both `a` and `a:link` must be changed -->
+<!-- to change link colors-->
+<pre><code>a{
+    color: rgb(97, 175, 239) !important;
+}
+
+a:link{
+    color: rgb(97, 175, 239) !important;
+}
+
+a:visited{
+    color: rgb(230, 180, 180) !important;
+}
+
+:is(h1, h2, h3, h4, h5, h6, p) {
+    color: white;
+}
+
+code{
+    outline-style: solid;
+    outline-color: rgb(160, 160, 160);
+    outline-width: 1px;
+    outline-offset: 1px;
+    background-color: rgb(50, 50, 50);
+}
+</code></pre>
+  </style>
+</head>
+<!-- omit in toc -->
+<h1 id="postgresql-variables-psycopg2-and-using-postgresql-with-tableau">PostgreSQL variables, Psycopg2, and using PostgreSQL with Tableau</h1>
+<!-- omit in toc -->
+<h2 id="author-jackie-lu">Author: Jackie Lu</h2>
+<!-- omit in toc -->
+<h2 id="date-2021-apr-2">Date: 2021, Apr. 2</h2>
+<br>
+<!-- omit in toc -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#variables-in-postgresql">Variables in PostgreSQL</a></li>
+<li><a href="#writing-sql-queries-in-python">Writing SQL queries in Python</a></li>
+<li><a href="#setting-up-a-connection-between-postgresql-and-tableau">Setting up a connection between PostgreSQL and Tableau</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+<br>
+<h1 id="intro">Intro</h1>
+<p>I'll be discussing how to create variables with PostgreSQL, how to convert data frames in Python to SQL tables, and how to set up a connection between Tableau and a local PostgreSQL server.</p>
+<h1 id="variables-in-postgresql">Variables in PostgreSQL</h1>
+<p>I had difficulty getting variables to work in PostgreSQL queries. What I ended up doing was creating functions that return the value that I'm looking for, and then just used the functions in place of variables. Here's an example:</p>
+<pre><code class="language-{postgresql}"><code><div>/* Function that gets the start date of the fantasy matchup week */
+DROP FUNCTION IF EXISTS get_week_start();
+CREATE FUNCTION get_week_start() RETURNS date
+AS $$
+#print_strict_params on
+DECLARE
+week_start_date date;
+BEGIN
+    SELECT yahoo_matchups.week_start INTO STRICT week_start_date
+        FROM yahoo_matchups LIMIT 1;
+    RETURN week_start_date;
+END;
+$$ LANGUAGE plpgsql;
+
+/* Get the list of games that occur at the start of the fantasy matchup week */
+SELECT * FROM nba_schedule
+WHERE (gdte = get_week_start())
+</div></code></code></pre>
+<p>I then found out that single row, single column query results can also work. So for example, this works too:</p>
+<pre><code class="language-{postgresql}"><code><div>SELECT * FROM nba_schedule
+WHERE gdte = (SELECT week_start FROM yahoo_matchups LIMIT 1)
+</div></code></code></pre>
+<p>You can even temporarily store query results themself with the following syntax:</p>
+<pre><code class="language-{postgresql}"><code><div>WITH todays_games AS(
+    SELECT * FROM nba_schedule
+    WHERE gdte = (SELECT week_start FROM yahoo_matchups LIMIT 1)
+)
+SELECT gdte, stt, home_team FROM todays_games
+</div></code></code></pre>
+<h1 id="writing-sql-queries-in-python">Writing SQL queries in Python</h1>
+<p>You can write SQL queries in Python with Psycopg2. Here's some code I modified from <a href="https://naysan.ca/2020/06/21/pandas-to-postgresql-using-psycopg2-copy_from/" title="Try and except blocks for psycopg2">Naysan</a>.</p>
+<pre><code class="language-{python}"><code><div>import psycopg2
+
+login_info = json.load(open(&quot;./sql_login.json&quot;))
+
+conn = psycopg2.connect(
+    host = login_info[&quot;host&quot;],
+    database = login_info[&quot;database&quot;],
+    user = login_info[&quot;user&quot;],
+    password = login_info[&quot;password&quot;]
+)
+
+try:
+    query1 = (&quot;&quot;&quot;
+              SELECT * FROM yahoo_matchups
+              ORDER BY matchup_number, team_key, stat_type;
+              &quot;&quot;&quot;)
+    cursor.execute(&quot;&quot;&quot;
+                   {}
+                   &quot;&quot;&quot;.format(query1))
+    conn.commit()
+    cursor.close()
+except (Exception, psycopg2.DatabaseError) as error:
+    print(&quot;Error: {}&quot;.format(error))
+    conn.rollback()
+    cursor.close()
+</div></code></code></pre>
+<p>I modified this code</p>
+<p>As you can see, you do this by creating a connection to the SQL database, creating a cursor, executing the queries, then committing them to the database. You can visit my <a href="https://github.com/jql6/Fantasy_NBA/blob/main/example_sql_login.json">example sql login json file</a> as a template for your own <code>sql_login.json</code> file.</p>
+<p>The try and except blocks are important if the query has an error. I found that if there was an SQL error and I didn't have <code>conn.rollback()</code>, then Python would hang on the next SQL query that I try to execute.</p>
+<h1 id="setting-up-a-connection-between-postgresql-and-tableau">Setting up a connection between PostgreSQL and Tableau</h1>
+<p>You'll need to change the <code>postgresql.conf</code> file. For me on MacOS, this is found through <code>~/Library/Application\ Support/Postgres/var-13/postgresql.conf</code>. Go to connection settings and uncomment the <code>listen_addresses</code> line. Replace the <code>listen_addresses</code> line with <code>listen_addresses = '*'</code>. Here's <a href="https://stackoverflow.com/a/9765021" title="An explanation of what setting listen_addresses to * does">an explanation of what setting <code>listen_addresses</code> to <code>*</code> does.</a></p>
+<p>Next, in the same folder that contained <code>postgresql.conf</code>, search for the <code>pg_hba.conf</code> file. Search for &quot;Put your actual configuration here&quot; and look at the non-commented code. You can create a new line and place <code>host   all              all             all                     md5</code> underneath the existing rows. This code comes from an answer about <a href="https://stackoverflow.com/a/11754169" title="Setting up the pg_hba.conf file">the code for the <code>pg_hba.conf</code> file</a>.</p>
+<p>After doing these steps, you should be able to connect to your local PostgreSQL server with Tableau and start plotting from the database's data.</p>
+<h1 id="resources">Resources</h1>
+<ol>
+<li><strong>Try and except blocks for psycopg2</strong>
+<br>
+<a href="https://naysan.ca/2020/06/21/pandas-to-postgresql-using-psycopg2-copy_from/">https://naysan.ca/2020/06/21/pandas-to-postgresql-using-psycopg2-copy_from/</a>
+<br></li>
+</ol>
+<ol start="2">
+<li><strong>An explanation of what setting listen_addresses to * does</strong>
+<br>
+<a href="https://stackoverflow.com/a/9765021">https://stackoverflow.com/a/9765021</a>
+<br></li>
+</ol>
+<ol start="3">
+<li><strong>Setting up the pg_hba.conf file</strong>
+<br>
+<a href="https://stackoverflow.com/a/11754169">https://stackoverflow.com/a/11754169</a>
+<br></li>
+</ol>
+
+    </body>
+    </html>
