@@ -145,7 +145,6 @@ except (Exception, psycopg2.DatabaseError) as error:
     conn.rollback()
     cursor.close()
 </div></code></code></pre>
-<p>I modified this code</p>
 <p>As you can see, you do this by creating a connection to the SQL database, creating a cursor, executing the queries, then committing them to the database. You can visit my <a href="https://github.com/jql6/Fantasy_NBA/blob/main/example_sql_login.json">example sql login json file</a> as a template for your own <code>sql_login.json</code> file.</p>
 <p>The try and except blocks are important if the query has an error. I found that if there was an SQL error and I didn't have <code>conn.rollback()</code>, then Python would hang on the next SQL query that I try to execute.</p>
 <h1 id="setting-up-a-connection-between-postgresql-and-tableau">Setting up a connection between PostgreSQL and Tableau</h1>

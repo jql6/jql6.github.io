@@ -136,7 +136,6 @@ except (Exception, psycopg2.DatabaseError) as error:
     conn.rollback()
     cursor.close()
 ```
-I modified this code
 
 As you can see, you do this by creating a connection to the SQL database, creating a cursor, executing the queries, then committing them to the database. You can visit my [example sql login json file](https://github.com/jql6/Fantasy_NBA/blob/main/example_sql_login.json) as a template for your own `sql_login.json` file.  
 
