@@ -1,9 +1,36 @@
 /* Homepage stylesheet */
 
-.center_border{
+a:visited{
+  color: rgb(204, 90, 86);
+}
+
+body{
+  background-image: url("images/tileable_textures/white_wood_tileable.png");
+}
+
+.header-text{
+  display: inline-block;
+  background-color:rgba(255, 255, 255, 0.9);
+  padding: 10px;
+}
+
+.section-text{
+  display: inline-block;
+  background-color:rgba(255, 255, 255, 0.8);
+  padding: 3px;
+}
+
+.center-border{
+  display: inline-block;
+  background-color:rgba(255, 255, 255, 0.9);
+  color: black;
   margin: auto;
-  border: 3px solid #969696;
   padding: 2px;
+  text-align: center;
+}
+
+.centered-text{
+  font-size: 1.5rem;
   text-align: center;
 }
 
