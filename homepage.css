@@ -10,22 +10,22 @@ body{
 
 .header-text{
   display: inline-block;
-  background-color:rgba(255, 255, 255, 0.9);
+  background-color:rgba(255, 255, 255, 0.8);
   padding: 10px;
 }
 
 .section-text{
   display: inline-block;
-  background-color:rgba(255, 255, 255, 0.8);
+  background-color:rgba(255, 255, 255, 0.75);
   padding: 3px;
 }
 
 .center-border{
   display: inline-block;
-  background-color:rgba(255, 255, 255, 0.9);
+  background-color:rgba(255, 255, 255, 0.8);
   color: black;
   margin: auto;
-  padding: 2px;
+  padding: 2px 10px;
   text-align: center;
 }
 
