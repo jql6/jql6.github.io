@@ -11,13 +11,24 @@ body{
 .header-text{
   display: inline-block;
   background-color:rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.2rem;
+  margin-left: 0.8rem;
+  margin-top: 0.2rem;
   padding: 10px;
 }
 
 .section-text{
   display: inline-block;
   background-color:rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.2rem;
+  margin-left: 0.8rem;
+  margin-top: 0.2rem;
   padding: 3px;
+}
+
+.section-list > ul{
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .center-border{
@@ -43,6 +54,7 @@ body{
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
   margin: auto;
+  margin-top: 1rem;
 }
 
 @media screen and (min-width: 600px){
@@ -89,6 +101,7 @@ body{
 .image-panel:hover .text-overlay{
   opacity: 1;
 }
+
 
 /* Background images */
 #pic-2020-09-29 {
