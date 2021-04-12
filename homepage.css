@@ -1,8 +1,129 @@
 /* Homepage stylesheet */
 
-
 body{
   background-image: url("images/tileable_textures/white_wood_tileable.png");
+  margin-bottom: 6rem;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+  font-family: Helvetica, sans-serif;
+  font-size: 3rem;
+  text-align: center;
+}
+
+a{
+  font-family: Helvetica, sans-serif;
+}
+
+p{
+  font-family: Helvetica, sans-serif;
+}
+
+
+ul li{
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+#blog{
+  /*
+  background-color: rgba(255, 255, 255, 0.4);
+  */
+  background-image: linear-gradient(to right,
+    rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0));
+  margin: 1rem 0.6rem;
+  padding: 0.25rem;
+  width: 98%;
+}
+
+#blog > h1{
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+/**
+ * Classes
+ */
+
+.header-grid{
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin: auto;
+  width: 98%;
+}
+
+#other-works h3{
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.self-portrait{
+  background-image: url("images/profile_pic/sassa.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 95%;
+  justify-content: center;
+  width: 95%;
+}
+
+.header-grid > section{
+  display: flex;
+  align-items: center;
+  background-color:rgba(255, 255, 255, 0.705);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
+}
+
+.three-rows{
+  width: 100%;
+}
+
+#header-right .three-rows{
+  display: grid;
+  grid-gap: 5px;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.header-grid > section.three-rows{
+  grid-template-rows: 2fr 1fr 1fr;
+}
+
+.header-grid section.two-columns{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.header-grid > section::before {
+  display: block;
+  content: '';
+  padding-bottom: 50%;
+}
+
+.header-grid :is(h1, h2, h3, h4, h5, h6, p){
+  text-align: center;
+}
+
+.header-grid h1{
+  background-color:rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 3rem;
+  margin: 0.4rem;
+  padding-bottom: 0.9rem;
+  padding-top: 0.9rem;
+}
+
+.header-grid :is(a, p){
+  font-size: 1.5rem;
+  margin: 0.4rem;
+  padding-bottom: 0.7rem;
+  padding-top: 0.7rem;
 }
 
 .header-text{
@@ -10,6 +131,26 @@ body{
   margin-left: 0.8rem;
   margin-top: 0.2rem;
   padding: 3px 10px;
+}
+
+.button{
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 3px solid rgb(189, 186, 0);
+  color: white;
+  padding: 0.5rem;
+  text-decoration: none;
+}
+
+.email{
+  background-image: url("images/email/email_transparent.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 2.5rem;
+  margin: auto;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+  width: 90%;
 }
 
 .section-text{
@@ -54,8 +195,6 @@ body{
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
-
-
 
 .image-panel {
   /* A larger font size introduces more space below the image panel */
