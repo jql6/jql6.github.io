@@ -55,10 +55,17 @@ ul li{
   width: 98%;
 }
 
+#other-works{
+  background-color:rgba(255, 255, 255, 0.705);
+  margin: auto;
+  width: 98%;
+}
+
 #other-works h3{
   font-size: 2rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  padding: 1rem;
 }
 
 .self-portrait{
@@ -127,9 +134,7 @@ ul li{
 }
 
 .header-text{
-  margin-bottom: 0.2rem;
-  margin-left: 0.8rem;
-  margin-top: 0.2rem;
+  margin: 0.2rem 0.8rem;
   padding: 3px 10px;
 }
 
