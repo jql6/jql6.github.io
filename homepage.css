@@ -1,71 +1,82 @@
 /* Homepage stylesheet */
 
+
+/**
+ * Element styles
+ */
 body{
   background-image: url("images/tileable_textures/white_wood_tileable.png");
-  margin-bottom: 6rem;
+  margin-bottom: 6rem; /* Extra space at bottom of page */
 }
 
-:is(h1, h2, h3, h4, h5, h6) {
+/* Set font for text */
+:is(a, p, h1, h2, h3, h4, h5, h6){
   font-family: Helvetica, sans-serif;
+}
+/* Make headers bigger and centered */
+:is(h1, h2, h3) {
   font-size: 3rem;
   text-align: center;
 }
 
-a{
-  font-family: Helvetica, sans-serif;
-}
-
-p{
-  font-family: Helvetica, sans-serif;
-}
-
-
+/* Increase space between unordered list items */
 ul li{
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
 }
 
-#blog{
-  /*
-  background-color: rgba(255, 255, 255, 0.4);
-  */
-  background-image: linear-gradient(to right,
-    rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.6),
-    rgba(255, 255, 255, 0.6),
-    rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0));
-  margin: 1rem 0.6rem;
-  padding: 0.25rem;
-  width: 98%;
-}
-
-#blog > h1{
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-}
 
 /**
  * Classes
  */
+.button{
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 3px solid rgb(189, 186, 0);
+  color: white;
+  padding: 0.5rem;
+  text-decoration: none;
+}
 
+.button:hover{
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 3px 3px 3px rgb(212, 212, 212);
+}
+
+.center-border{
+  display: inline-block;
+  color: black;
+  margin: auto;
+  padding: 2px 10px;
+  text-align: center;
+}
+
+.centered-text{
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.section-list > ul{
+  margin-left: 1.5rem;
+  margin-top: 0.2rem;
+}
+
+.section-text{
+  margin-bottom: 0.2rem;
+  margin-left: 0.8rem;
+  margin-top: 0.2rem;
+  padding: 3px;
+}
+
+
+/**
+ * Header styles
+ */
 .header-grid{
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 1fr 2fr 1fr;
   margin: auto;
   width: 98%;
-}
-
-#other-works{
-  background-color:rgba(255, 255, 255, 0.705);
-  margin: auto;
-  width: 98%;
-}
-
-#other-works h3{
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-  padding: 1rem;
 }
 
 .self-portrait{
@@ -76,6 +87,18 @@ ul li{
   height: 95%;
   justify-content: center;
   width: 95%;
+}
+
+.shake:hover {
+  animation: shake 0.3s;
+  animation-iteration-count: 1;
+}
+
+@keyframes shake {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  33% { transform: translate(0px, 0px) rotate(-1deg); }
+  66% { transform: translate(0px, 0px) rotate(1deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
 }
 
 .header-grid > section{
@@ -138,14 +161,6 @@ ul li{
   padding: 3px 10px;
 }
 
-.button{
-  background-color: rgba(0, 0, 0, 0.5);
-  border-bottom: 3px solid rgb(189, 186, 0);
-  color: white;
-  padding: 0.5rem;
-  text-decoration: none;
-}
-
 .email{
   background-image: url("images/email/email_transparent.png");
   background-position: center;
@@ -158,31 +173,28 @@ ul li{
   width: 90%;
 }
 
-.section-text{
-  margin-bottom: 0.2rem;
-  margin-left: 0.8rem;
-  margin-top: 0.2rem;
-  padding: 3px;
+/**
+ * Blog section styles
+ */
+/* Blog element that has gradient */
+#blog{
+  background-image: linear-gradient(to right,
+    rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0));
+  margin: 1rem 0.6rem;
+  padding: 0.25rem;
+  width: 98%;
+}
+/* Add more vertical space to blog element */
+#blog > h1{
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
-.section-list > ul{
-  margin-left: 1.5rem;
-  margin-top: 0.2rem;
-}
-
-.center-border{
-  display: inline-block;
-  color: black;
-  margin: auto;
-  padding: 2px 10px;
-  text-align: center;
-}
-
-.centered-text{
-  font-size: 1.5rem;
-  text-align: center;
-}
-
+/**
+ * Styles for the image panels underneath the 'Blog' title
+ */
 .grid-container {
   font-size: 40px;
   text-align: center;
@@ -195,12 +207,6 @@ ul li{
   margin-top: 1rem;
 }
 
-@media screen and (min-width: 600px){
-  .grid-container {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-
 .image-panel {
   /* A larger font size introduces more space below the image panel */
   display: flex;
@@ -211,13 +217,13 @@ ul li{
   background-repeat: no-repeat;
   background-size: cover;
 }
-
+/* Make the image panels square */
 .image-panel::before {
   display: block;
   content: '';
   padding-bottom: 100%;
 }
-
+/* Text overlay when image panels are hovered over */
 .text-overlay {
   background: rgb(0, 0, 0);
   background: rgba(20, 20, 20, 0.9);
@@ -235,8 +241,26 @@ ul li{
   opacity: 1;
 }
 
+/**
+ * Other works section styles
+ */
+ #other-works{
+  background-color:rgba(255, 255, 255, 0.705);
+  margin: auto;
+  width: 98%;
+}
 
-/* Background images */
+#other-works h3{
+  font-size: 2rem;
+  margin-bottom: 0px;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+
+/**
+ * Background images
+ **/
 #pic-2020-09-29 {
   background-image: url("images/2020.09.29.png");
 }
@@ -271,4 +295,15 @@ ul li{
 
 #pic-2021-04-09 {
   background-image: url("images/2021.04.09.jpg");
+}
+
+
+/**
+ * Styles for desktop view
+ */
+@media screen and (min-width: 600px){
+  /* 3 columns of images when desktop view instead of 2 */
+  .grid-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
