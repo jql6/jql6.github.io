@@ -302,7 +302,7 @@ ul li{
 /**
  * Styles for desktop view
  */
-@media screen and (min-width: 600px){
+@media screen and (min-width: 480px){
   /* 3 columns of images when desktop view instead of 2 */
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr;
