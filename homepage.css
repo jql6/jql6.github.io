@@ -165,7 +165,7 @@ ul li{
   background-image: url("images/email/email_transparent.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% auto;
   height: 2.5rem;
   margin: auto;
   margin-bottom: 0.4rem;
