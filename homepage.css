@@ -14,15 +14,19 @@ body{
   font-family: Helvetica, sans-serif;
 }
 /* Make headers bigger and centered */
-:is(h1, h2, h3) {
+h1 {
   font-size: 3rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
   text-align: center;
 }
 
 /* Increase space between unordered list items */
 ul li{
   margin-bottom: 1.5rem;
-  margin-top: 1.5rem;
 }
 
 
@@ -205,6 +209,7 @@ ul li{
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   margin: auto;
+  margin-bottom: 1rem;
   margin-top: 1rem;
 }
 
@@ -251,8 +256,7 @@ ul li{
   width: 98%;
 }
 
-#other-works h3{
-  font-size: 2rem;
+#other-works h2{
   margin-bottom: 0px;
   margin-top: 1rem;
   padding: 1rem;
