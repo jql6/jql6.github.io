@@ -1,6 +1,14 @@
 /* Homepage stylesheet */
 
 
+:root{
+  --text-size: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 /**
  * Element styles
  */
@@ -15,19 +23,30 @@ body{
 }
 /* Make headers bigger and centered */
 h1 {
-  font-size: 3rem;
+  font-size: calc(var(--text-size) * 2);
   text-align: center;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: calc(var(--text-size) * 1.5);
   text-align: center;
 }
 
 /* Increase space between unordered list items */
-ul li{
-  margin-bottom: 1.5rem;
+.section-list {
+  display: grid;
+  grid-template-columns: 1fr;
 }
+.section-list a.button{
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  max-width: 90%;
+  white-space: normal;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 
 
 /**
@@ -37,6 +56,7 @@ ul li{
   background-color: rgba(0, 0, 0, 0.5);
   border-bottom: 3px solid rgb(189, 186, 0);
   color: white;
+  font-size: calc(var(--text-size) * 1.1);
   padding: 0.5rem;
   text-decoration: none;
   white-space: nowrap;
@@ -60,18 +80,6 @@ ul li{
   text-align: center;
 }
 
-.section-list > ul{
-  margin-left: 1.5rem;
-  margin-top: 0.2rem;
-}
-
-.section-text{
-  margin-bottom: 0.2rem;
-  margin-left: 0.8rem;
-  margin-top: 0.2rem;
-  padding: 3px;
-}
-
 
 /**
  * Header styles
@@ -79,14 +87,14 @@ ul li{
 .header-grid{
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr;
   margin: auto;
   width: 98%;
 }
 
 .self-portrait{
   background-image: url("images/profile/sassa.jpg");
-  background-position: center;
+  background-position: 50% 30%;
   background-repeat: no-repeat;
   background-size: cover;
   height: 95%;
@@ -148,7 +156,6 @@ ul li{
 .header-grid h1{
   background-color:rgba(0, 0, 0, 0.8);
   color: white;
-  font-size: 3rem;
   margin: 0.4rem;
   padding-bottom: 0.9rem;
   padding-top: 0.9rem;
@@ -187,7 +194,7 @@ ul li{
     rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.6),
     rgba(255, 255, 255, 0.6),
     rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0));
-  margin: 1rem 0.6rem;
+  margin: 1rem auto;
   padding: 0.25rem;
   width: 98%;
 }
@@ -234,13 +241,12 @@ ul li{
   background: rgb(0, 0, 0);
   background: rgba(20, 20, 20, 0.9);
   color: #FFF;
+  font-size: calc(var(--text-size) * 1.5);
   transition: 0.3s ease-out;
   opacity: 0;
   align-self: flex-end;
   margin: 0px;
   width: 100%;
-  font-size: 30px;
-  min-height: 60px;
 }
 
 .image-panel:hover .text-overlay{
@@ -317,9 +323,23 @@ ul li{
 /**
  * Styles for desktop view
  */
-@media screen and (min-width: 480px){
+@media screen and (min-width: 500px){
+  /* Increase font size */
+  :root {
+    --text-size: 1.2rem;
+  }
+
+  .header-grid{
+    grid-template-columns: 1fr 2fr 1fr;
+  }
   /* 3 columns of images when desktop view instead of 2 */
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 500px){
+  .self-portrait{
+    background-position: center;
   }
 }
