@@ -2,7 +2,9 @@
 
 
 :root{
-  --text-size: 1rem;
+  --text-size: 1em;
+  --max-content-width: 1200px;
+  --min-content-width: 760px;
 }
 
 * {
@@ -90,6 +92,8 @@ h2 {
   grid-template-columns: 1fr;
   margin: auto;
   width: 98%;
+  max-width: var(--max-content-width);
+  min-width: var(--min-content-width);
 }
 
 .self-portrait{
@@ -178,7 +182,7 @@ h2 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% auto;
-  height: 2.5rem;
+  height: 5rem;
   margin: auto;
   margin-bottom: 0.4rem;
   margin-top: 0.4rem;
@@ -195,6 +199,8 @@ h2 {
   margin: 1rem auto;
   padding: 0.25rem;
   width: 98%;
+  max-width: var(--max-content-width);
+  min-width: var(--min-content-width);
 }
 /* Add more vertical space to blog element */
 #blog > h1{
@@ -216,6 +222,8 @@ h2 {
   margin: auto;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  max-width: var(--max-content-width);
+  min-width: var(--min-content-width);
 }
 
 .image-panel {
@@ -258,6 +266,8 @@ h2 {
   background-color:rgba(255, 255, 255, 0.705);
   margin: auto;
   width: 98%;
+  max-width: var(--max-content-width);
+  min-width: var(--min-content-width);
 }
 
 #other-works h2{
@@ -337,7 +347,7 @@ h2 {
 /**
  * Styles for desktop view
  */
-@media screen and (min-width: 500px){
+@media screen and (min-width: 800px){
   /* Increase font size */
   :root {
     --text-size: 1.2rem;
@@ -350,9 +360,11 @@ h2 {
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr;
   }
-}
 
-@media screen and (min-width: 500px){
+  .email{
+    height: 2.5rem;
+  }
+
   .self-portrait{
     background-position: center;
   }
