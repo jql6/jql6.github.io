@@ -2,7 +2,7 @@
 
 
 :root{
-  --text-size: 1em;
+  --text-size: 0.9em;
   --max-content-width: 1200px;
   --min-content-width: 340px;
 }
