@@ -15,12 +15,8 @@
  * Element styles
  */
 body{
-  background-image: url("images/tileable_textures/white_wood_tileable.png");
+  background-image: url("../images/tileable_textures/white_wood_tileable_dark.png");
   margin-bottom: 6rem; /* Extra space at bottom of page */
-}
-
-body#dark-body{
-  background-image: url("images/tileable_textures/white_wood_tileable_dark.png");
 }
 
 /* Set font for text */
@@ -101,7 +97,7 @@ h2 {
 }
 
 .self-portrait{
-  background-image: url("images/profile/sassa.jpg");
+  background-image: url("../images/profile/sassa.jpg");
   background-position: 50% 30%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -182,7 +178,7 @@ h2 {
 }
 
 .email{
-  background-image: url("images/email/email_transparent.png");
+  background-image: url("../images/email/email_transparent.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -285,76 +281,37 @@ h2 {
 /**
  * Background images
  **/
+
 #pic-nnadl {
-  background-image: url("images/nnadl.png");
+  background-image: url("../images/nnadl.png");
 }
 
 #pic-2020-09-29 {
-  background-image: url("images/2020.09.29.png");
+  background-image: url("../images/2020.09.29.png");
 }
 
 #pic-2020-10-31 {
-  background-image: url("images/2020.10.31.png");
-}
-
-#pic-2021-02-22 {
-  background-image: url("images/2021.02.22.png");
-}
-
-#pic-2021-02-26 {
-  background-image: url("images/2021.02.26.png");
-}
-
-#pic-2021-03-04 {
-  background-image: url("images/2021.03.04.png");
+  background-image: url("../images/2020.10.31.png");
 }
 
 #pic-2021-03-13 {
-  background-image: url("images/2021.03.13.png");
+  background-image: url("../images/2021.03.13.png");
 }
 
 #pic-2021-03-24 {
-  background-image: url("images/2021.03.24.png");
+  background-image: url("../images/2021.03.24.png");
 }
 
 #pic-2021-04-02 {
-  background-image: url("images/2021.04.02.png");
+  background-image: url("../images/2021.04.02.png");
 }
 
 #pic-2021-04-09 {
-  background-image: url("images/2021.04.09.jpg");
-}
-
-#pic-2021-04-21 {
-  background-image: url("images/2021.04.21.png");
-}
-
-#pic-2021-04-26 {
-  background-image: url("images/2021.04.26.png");
-}
-
-#pic-2021-04-29 {
-  background-image: url("images/2021.04.29.webp");
+  background-image: url("../images/2021.04.09.jpg");
 }
 
 #pic-2021-05-15 {
-  background-image: url("images/2021.05.15.webp");
-}
-
-#pic-2021-05-25 {
-  background-image: url("images/2021.05.25.webp");
-}
-
-#pic-2021-06-24 {
-  background-image: url("images/2021.06.24.gif");
-}
-
-#pic-2021-07-05 {
-  background-image: url("images/2021.07.05.gif");
-}
-
-#pic-2021-07-29 {
-  background-image: url("images/2021.07.29.gif");
+  background-image: url("../images/2021.05.15.webp");
 }
 
 /**
@@ -364,10 +321,6 @@ h2 {
   /* Increase font size */
   :root {
     --text-size: 1.5rem;
-  }
-
-  .header-grid :is(a, p){
-    font-size: 1.5rem;
   }
 
   .header-grid{
