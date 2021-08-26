@@ -80,8 +80,8 @@
     <a href="https://github.com/jql6/jql6.github.io">
       Link to the repository
     </a> | 
-    <a href="https://jql6.github.io/">
-      Return to homepage
+    <a href="https://jql6.github.io/blog">
+      Return to blog
     </a>
   </p>
 </section>
