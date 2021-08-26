@@ -357,6 +357,10 @@ h2 {
   background-image: url("images/2021.07.29.gif");
 }
 
+#pic-2021-08-26 {
+  background-image: url("blog/posts/2021-08-26/execution_time.png");
+}
+
 /**
  * Styles for desktop view
  */
