@@ -75,8 +75,6 @@
 <!-- omit in toc -->
 ## Date: 2021, Aug. 26
 
-<br>
-
 <section>
   <p>
     <a href="https://github.com/jql6/jql6.github.io">
