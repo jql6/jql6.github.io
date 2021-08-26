@@ -79,7 +79,7 @@
 
 <section>
   <p>
-    <a href="https://github.com/jql6/building-permit-analysis">
+    <a href="https://github.com/jql6/jql6.github.io">
       Link to the repository
     </a> | 
     <a href="https://jql6.github.io/">
@@ -91,9 +91,13 @@
 <!-- omit in toc -->
 ## Table of Contents
 
+- [Note](#note)
 - [O(n) function](#on-function)
 - [O(n^2) function](#on2-function)
 - [References](#references)
+
+# Note
+The Python code for the functions, unit tests, comparisons, as well as the data in csv format and image can be found in [this link to the code](https://github.com/jql6/jql6.github.io/tree/master/blog/PythonDS/3.3.%20Big-O%20Notation).
 
 # O(n) function
 
@@ -163,7 +167,7 @@ array twice.
 Here's a plot of the execution time:
 <figure>
   <img src="execution_time.png" width="800"/>
-  <figcaption><a href="https://jql6.github.io/">Here we see that execution time increases dramatically as the number of elements in the list increases. Photo</a> by <a href="https://github.com/jql6">jql6</a> on <a href="https://github.com">Github</a></figcaption>
+  <figcaption>Here we see that execution time increases dramatically as the number of elements in the list increases.</figcaption>
 </figure>
 
 # References
