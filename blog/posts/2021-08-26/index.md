@@ -159,8 +159,7 @@ def find_min_n2(numberList):
 
 ```
 
-This function is `O(n^2)` because it loops through all of the elements in the
-array twice.
+This function is `O(n^2)` because of the nested loop.
 
 Here's a plot of the execution time:
 <figure>
