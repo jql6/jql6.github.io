@@ -163,7 +163,7 @@ This function is `O(n^2)` because of the nested loop.
 
 Here's a plot of the execution time:
 <figure>
-  <img src="execution_time.png" width="800"/>
+  <img src="https://raw.githubusercontent.com/jql6/jql6.github.io/master/blog/posts/2021-08-26/execution_time.png" width="800"/>
   <figcaption>Here we see that execution time increases dramatically as the number of elements in the list increases.</figcaption>
 </figure>
 
