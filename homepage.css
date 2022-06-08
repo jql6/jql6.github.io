@@ -146,6 +146,11 @@ h2 {
   grid-template-rows: 2fr 1fr 1fr;
 }
 
+.header-grid section.two-columns{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .header-grid section.three-columns{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
